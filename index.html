@@ -6,48 +6,118 @@
 <title>Unblocked Games FreezeNova</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff}
+body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff;min-height:100vh}
+
+/* NAVBAR */
 .navbar{display:flex;align-items:center;justify-content:space-between;padding:12px 20px;background:#13132a;border-bottom:1px solid #2a2a4a;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:100}
-.logo{font-size:20px;font-weight:700;color:#7c6ef5;letter-spacing:-0.5px}
+.logo{font-size:22px;font-weight:800;color:#7c6ef5;letter-spacing:-0.5px;text-decoration:none}
 .logo span{color:#fff}
 .nav-links{display:flex;gap:16px;flex-wrap:wrap}
-.nav-links a{color:#aaa;font-size:13px;text-decoration:none;cursor:pointer;transition:color 0.2s}
-.nav-links a:hover{color:#fff}
-.search-wrap{display:flex;align-items:center;background:#1e1e38;border:1px solid #3a3a5a;border-radius:8px;padding:7px 12px;gap:7px}
+.nav-links a{color:#aaa;font-size:13px;text-decoration:none;cursor:pointer;transition:color 0.2s;padding:4px 0;border-bottom:2px solid transparent}
+.nav-links a:hover{color:#fff;border-bottom-color:#7c6ef5}
+.search-wrap{display:flex;align-items:center;background:#1e1e38;border:1px solid #3a3a5a;border-radius:8px;padding:7px 12px;gap:7px;transition:border-color 0.2s}
+.search-wrap:focus-within{border-color:#7c6ef5}
 .search-wrap input{background:none;border:none;outline:none;color:#fff;font-size:13px;width:160px}
 .search-wrap input::placeholder{color:#555}
-.hero{background:linear-gradient(135deg,#13132a,#0d0d2a 60%,#1a0a2e);padding:40px 20px 28px;text-align:center}
-.hero h1{font-size:28px;font-weight:700;color:#fff;margin-bottom:8px}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#13132a,#0d0d2a 60%,#1a0a2e);padding:44px 20px 32px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 60% 0%,rgba(124,110,245,0.12),transparent 70%);pointer-events:none}
+.hero h1{font-size:30px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.2}
 .hero h1 span{color:#7c6ef5}
-.hero p{color:#888;font-size:14px}
-.cats{display:flex;gap:8px;padding:16px 20px 4px;flex-wrap:wrap}
-.cat{background:#1a1a30;border:1px solid #333;border-radius:20px;padding:6px 14px;color:#bbb;font-size:12px;cursor:pointer;transition:all 0.2s}
-.cat:hover,.cat.on{background:#7c6ef5;border-color:#7c6ef5;color:#fff}
-.sec-title{font-size:15px;font-weight:600;color:#ccc;padding:16px 20px 10px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;padding:0 20px 24px}
-.card{background:#1a1a2e;border:1px solid #2a2a44;border-radius:10px;overflow:hidden;cursor:pointer;transition:transform 0.18s,border-color 0.18s}
+.hero p{color:#888;font-size:14px;margin-bottom:18px}
+.hero-stats{display:flex;justify-content:center;gap:28px;flex-wrap:wrap}
+.hstat{text-align:center}
+.hstat-num{font-size:20px;font-weight:700;color:#7c6ef5}
+.hstat-lbl{font-size:11px;color:#666;margin-top:2px}
+
+/* FEATURED */
+.feat-wrap{padding:18px 20px 6px}
+.sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sec-title{font-size:15px;font-weight:700;color:#ccc}
+.sec-title .dot{display:inline-block;width:8px;height:8px;background:#7c6ef5;border-radius:50%;margin-right:7px}
+.see-all{font-size:12px;color:#7c6ef5;cursor:pointer;background:none;border:none;padding:0}
+.see-all:hover{text-decoration:underline}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.feat-card{background:#1a1a2e;border:1px solid #2a2a44;border-radius:12px;overflow:hidden;cursor:pointer;transition:transform 0.18s,border-color 0.18s;position:relative}
+.feat-card:hover{transform:translateY(-4px);border-color:#7c6ef5}
+.feat-card .thumb{width:100%;height:120px;object-fit:cover;display:block;background:#111}
+.feat-badge{position:absolute;top:8px;left:8px;background:#7c6ef5;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px}
+.feat-card .cinfo{padding:10px 12px 12px}
+.feat-card .ctitle{font-size:13px;font-weight:700;color:#e8e8e8;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.feat-card .ctag{font-size:10px;color:#7c6ef5;background:#1e1a3a;padding:2px 8px;border-radius:10px;display:inline-block;text-transform:capitalize}
+
+/* CATEGORIES */
+.cats-wrap{padding:8px 20px 4px}
+.cats{display:flex;gap:6px;flex-wrap:wrap}
+.cat{background:#1a1a30;border:1px solid #333;border-radius:20px;padding:5px 13px;color:#bbb;font-size:12px;cursor:pointer;transition:all 0.2s;white-space:nowrap}
+.cat:hover,.cat.on{background:#7c6ef5;border-color:#7c6ef5;color:#fff;font-weight:600}
+
+/* GAME COUNT */
+.game-count-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 8px}
+.game-count-label{font-size:15px;font-weight:700;color:#ccc}
+.game-count-num{font-size:12px;color:#666;background:#1a1a2e;padding:3px 10px;border-radius:20px;border:1px solid #2a2a44}
+
+/* GRID */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:12px;padding:0 20px 28px}
+.card{background:#1a1a2e;border:1px solid #2a2a44;border-radius:10px;overflow:hidden;cursor:pointer;transition:transform 0.18s,border-color 0.18s;position:relative}
 .card:hover{transform:translateY(-3px);border-color:#7c6ef5}
+.card:hover .play-overlay{opacity:1}
 .thumb{width:100%;height:100px;object-fit:cover;display:block;background:#111}
+.play-overlay{position:absolute;top:0;left:0;width:100%;height:100px;background:rgba(124,110,245,0.25);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s}
+.play-icon{width:36px;height:36px;background:#7c6ef5;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.play-icon svg{margin-left:3px}
 .cinfo{padding:8px 10px 10px}
-.ctitle{font-size:12px;font-weight:600;color:#e8e8e8;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ctitle{font-size:12px;font-weight:600;color:#e8e8e8;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ctag{font-size:10px;color:#666;text-transform:capitalize}
+
+/* PLAYER */
 .player-bg{display:none;position:fixed;inset:0;background:#000;z-index:300;flex-direction:column}
 .player-bg.open{display:flex}
-.player-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#13132a;border-bottom:1px solid #2a2a4a;flex-shrink:0}
-.player-left{display:flex;align-items:center;gap:10px}
-.player-title{font-size:15px;font-weight:600;color:#fff}
-.player-tag{font-size:11px;color:#a98af5;background:#251f44;padding:2px 10px;border-radius:10px}
-.close-btn{background:#2a2a44;border:none;color:#fff;font-size:16px;width:34px;height:34px;border-radius:8px;cursor:pointer;transition:background 0.2s}
+.player-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;background:#13132a;border-bottom:1px solid #2a2a4a;flex-shrink:0;gap:10px}
+.player-left{display:flex;align-items:center;gap:10px;min-width:0}
+.player-logo{font-size:16px;font-weight:800;color:#7c6ef5;flex-shrink:0}
+.player-logo span{color:#fff}
+.player-title{font-size:15px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.player-tag{font-size:11px;color:#a98af5;background:#251f44;padding:2px 10px;border-radius:10px;flex-shrink:0;text-transform:uppercase}
+.player-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.close-btn{background:#2a2a44;border:none;color:#fff;font-size:13px;padding:6px 14px;border-radius:8px;cursor:pointer;transition:background 0.2s;font-weight:600}
 .close-btn:hover{background:#7c6ef5}
+.fullscreen-btn{background:#1e1e38;border:1px solid #3a3a5a;color:#aaa;font-size:12px;padding:6px 12px;border-radius:8px;cursor:pointer;transition:all 0.2s}
+.fullscreen-btn:hover{color:#fff;border-color:#7c6ef5}
 .player-frame{flex:1;width:100%;border:none;background:#000}
-.footer{text-align:center;padding:16px;color:#444;font-size:11px;border-top:1px solid #1a1a2a;background:#0a0a15}
-.no-res{color:#555;font-size:14px;padding:20px;text-align:center;grid-column:1/-1}
+
+/* FOOTER */
+.footer{text-align:center;padding:20px;color:#444;font-size:11px;border-top:1px solid #1a1a2a;background:#0a0a15;line-height:1.8}
+.footer a{color:#7c6ef5;text-decoration:none}
+.footer a:hover{text-decoration:underline}
+
+/* MISC */
+.no-res{color:#555;font-size:14px;padding:40px;text-align:center;grid-column:1/-1}
+.no-res-icon{font-size:32px;margin-bottom:10px}
+
+/* Scrollbar */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0a0a15}
+::-webkit-scrollbar-thumb{background:#2a2a44;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#7c6ef5}
+
+/* Mobile */
+@media(max-width:600px){
+  .navbar{padding:10px 14px}
+  .nav-links{display:none}
+  .hero{padding:28px 14px 22px}
+  .hero h1{font-size:22px}
+  .feat-wrap,.cats-wrap,.game-count-bar{padding-left:14px;padding-right:14px}
+  .grid{padding:0 14px 20px;grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+  .search-wrap input{width:120px}
+}
 </style>
 </head>
 <body>
 
 <nav class="navbar">
-  <div class="logo">FREEZE<span>NOVA</span></div>
+  <div class="logo" onclick="setCategory(null,'all')" style="cursor:pointer">FREEZE<span>NOVA</span></div>
   <div class="nav-links">
     <a onclick="setCategory(null,'all')">Home</a>
     <a onclick="setCategory(null,'action')">Action</a>
@@ -55,6 +125,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff}
     <a onclick="setCategory(null,'drift')">Drift</a>
     <a onclick="setCategory(null,'io')">IO Games</a>
     <a onclick="setCategory(null,'multiplayer')">Multiplayer</a>
+    <a onclick="setCategory(null,'shooting')">Shooting</a>
   </div>
   <div class="search-wrap">
     <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
@@ -64,51 +135,81 @@ body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff}
 
 <div class="hero">
   <h1>Unblocked Games <span>FreezeNova</span></h1>
-  <p>Free online games — play anywhere, no downloads needed.</p>
+  <p>Free online games — play anywhere, anytime. No downloads needed.</p>
+  <div class="hero-stats">
+    <div class="hstat"><div class="hstat-num" id="totalCount">0</div><div class="hstat-lbl">Games</div></div>
+    <div class="hstat"><div class="hstat-num">21</div><div class="hstat-lbl">Categories</div></div>
+    <div class="hstat"><div class="hstat-num">Free</div><div class="hstat-lbl">Always</div></div>
+  </div>
 </div>
 
-<div class="cats">
-  <div class="cat on" onclick="setCategory(this,'all')">All</div>
-  <div class="cat" onclick="setCategory(this,'action')">Action</div>
-  <div class="cat" onclick="setCategory(this,'adventure')">Adventure</div>
-  <div class="cat" onclick="setCategory(this,'arcade')">Arcade</div>
-  <div class="cat" onclick="setCategory(this,'bike')">Bike</div>
-  <div class="cat" onclick="setCategory(this,'car')">Car</div>
-  <div class="cat" onclick="setCategory(this,'clicker')">Clicker</div>
-  <div class="cat" onclick="setCategory(this,'drift')">Drift</div>
-  <div class="cat" onclick="setCategory(this,'driving')">Driving</div>
-  <div class="cat" onclick="setCategory(this,'escape')">Escape</div>
-  <div class="cat" onclick="setCategory(this,'idle')">Idle</div>
-  <div class="cat" onclick="setCategory(this,'io')">IO Games</div>
-  <div class="cat" onclick="setCategory(this,'minecraft')">Minecraft</div>
-  <div class="cat" onclick="setCategory(this,'multiplayer')">Multiplayer</div>
-  <div class="cat" onclick="setCategory(this,'puzzle')">Puzzle</div>
-  <div class="cat" onclick="setCategory(this,'racing')">Racing</div>
-  <div class="cat" onclick="setCategory(this,'scary')">Scary</div>
-  <div class="cat" onclick="setCategory(this,'shooting')">Shooting</div>
-  <div class="cat" onclick="setCategory(this,'simulator')">Simulator</div>
-  <div class="cat" onclick="setCategory(this,'sports')">Sports</div>
-  <div class="cat" onclick="setCategory(this,'strategy')">Strategy</div>
+<!-- FEATURED -->
+<div class="feat-wrap" id="featSection">
+  <div class="sec-header">
+    <div class="sec-title"><span class="dot"></span>Featured Games</div>
+    <button class="see-all" onclick="setCategory(null,'all')">See all →</button>
+  </div>
+  <div class="feat-grid" id="featGrid"></div>
 </div>
 
-<div class="sec-title" id="secLabel">All Games</div>
+<!-- CATEGORIES -->
+<div class="cats-wrap">
+  <div class="cats">
+    <div class="cat on" onclick="setCategory(this,'all')">🎮 All</div>
+    <div class="cat" onclick="setCategory(this,'action')">⚔️ Action</div>
+    <div class="cat" onclick="setCategory(this,'adventure')">🗺️ Adventure</div>
+    <div class="cat" onclick="setCategory(this,'arcade')">🕹️ Arcade</div>
+    <div class="cat" onclick="setCategory(this,'bike')">🏍️ Bike</div>
+    <div class="cat" onclick="setCategory(this,'car')">🚗 Car</div>
+    <div class="cat" onclick="setCategory(this,'clicker')">👆 Clicker</div>
+    <div class="cat" onclick="setCategory(this,'drift')">💨 Drift</div>
+    <div class="cat" onclick="setCategory(this,'driving')">🛞 Driving</div>
+    <div class="cat" onclick="setCategory(this,'escape')">🏃 Escape</div>
+    <div class="cat" onclick="setCategory(this,'idle')">⏳ Idle</div>
+    <div class="cat" onclick="setCategory(this,'io')">🌐 IO Games</div>
+    <div class="cat" onclick="setCategory(this,'minecraft')">⛏️ Minecraft</div>
+    <div class="cat" onclick="setCategory(this,'multiplayer')">👥 Multiplayer</div>
+    <div class="cat" onclick="setCategory(this,'puzzle')">🧩 Puzzle</div>
+    <div class="cat" onclick="setCategory(this,'racing')">🏎️ Racing</div>
+    <div class="cat" onclick="setCategory(this,'scary')">👻 Scary</div>
+    <div class="cat" onclick="setCategory(this,'shooting')">🎯 Shooting</div>
+    <div class="cat" onclick="setCategory(this,'simulator')">🖥️ Simulator</div>
+    <div class="cat" onclick="setCategory(this,'sports')">⚽ Sports</div>
+    <div class="cat" onclick="setCategory(this,'strategy')">🧠 Strategy</div>
+  </div>
+</div>
+
+<!-- GAME GRID -->
+<div class="game-count-bar">
+  <div class="game-count-label" id="secLabel">All Games</div>
+  <div class="game-count-num" id="gameCount">0 games</div>
+</div>
 <div class="grid" id="grid"></div>
 
+<!-- PLAYER -->
 <div class="player-bg" id="player">
   <div class="player-bar">
     <div class="player-left">
+      <div class="player-logo">FREEZE<span>NOVA</span></div>
       <span class="player-title" id="pTitle"></span>
       <span class="player-tag" id="pTag"></span>
     </div>
-    <button class="close-btn" onclick="closePlayer()">✕ Back</button>
+    <div class="player-right">
+      <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+      <button class="close-btn" onclick="closePlayer()">✕ Back</button>
+    </div>
   </div>
   <iframe class="player-frame" id="pFrame" src="" allowfullscreen></iframe>
 </div>
 
-<div class="footer">© 2026 FreezeNova Unblocked Games · Play free games from school or anywhere</div>
+<div class="footer">
+  © 2026 <strong>FreezeNova</strong> Unblocked Games &nbsp;·&nbsp; Play free games from school or anywhere &nbsp;·&nbsp; No downloads required<br>
+  <span style="color:#333;font-size:10px;margin-top:4px;display:block">Press <kbd style="background:#1a1a2e;border:1px solid #333;padding:1px 5px;border-radius:3px;color:#888">ESC</kbd> to close any game</span>
+</div>
 
 <script>
 const BASE = "https://unblocked-games.s3.amazonaws.com/";
+
 const games = [
   {title:"DuckCraft",tag:"minecraft",img:"media/posts/745/duckcraft-unblocked.webp",url:"duckcraft.html"},
   {title:"Velocity Rush",tag:"skill",img:"media/posts/760/velocity-rush-unblocked.webp",url:"velocity-rush.html"},
@@ -119,22 +220,11 @@ const games = [
   {title:"Backflip Challenge",tag:"skill",img:"media/posts/743/backflip-challenge-game.webp",url:"backflip-challenge.html"},
   {title:"Age Of Battle",tag:"strategy",img:"media/posts/744/age-of-battle-game.webp",url:"age-of-battle.html"},
   {title:"Dublix",tag:"multiplayer",img:"media/posts/727/dublix-game.webp",url:"dublix.html"},
-  {title:"Fall Brainrots",tag:"io",img:"media/posts/742/fall-brainrots-game.webp",url:"fall-brainrots.html"},
-  {title:"99 Nights in the Forest Survival",tag:"adventure",img:"media/posts/741/99-nights-in-the-forest-survival.webp",url:"99-nights-in-the-forest-survival.html"},
-  {title:"Steal Brainrot Heist",tag:"action",img:"media/posts/739/steal-brainrot-heist-game.webp",url:"steal-brainrot-heist.html"},
-  {title:"Run 3",tag:"arcade",img:"media/posts/740/run-3-freezenova.webp",url:"run-3.html"},
-  {title:"Steal Brainrot Duel",tag:"multiplayer",img:"media/posts/734/steal-brainrot-duel-game.webp",url:"steal-brainrot-duel.html"},
-  {title:"Steal Car Duel",tag:"car",img:"media/posts/737/Steal-car-duel.webp",url:"steal-car-duel.html"},
-  {title:"Clash of Aliens",tag:"action",img:"media/posts/738/Clash-of-Aliens.webp",url:"clash-of-aliens.html"},
-  {title:"Geometry Vibes 3D",tag:"escape",img:"media/posts/736/geometry-vibes-3d.webp",url:"geometry-vibes-3d.html"},
-  {title:"Brainrot Mega Parkour",tag:"escape",img:"media/posts/735/brainrot-mega-parkour-game.webp",url:"brainrot-mega-parkour.html"},
-  {title:"Wave Road 3D",tag:"escape",img:"media/posts/733/wave-road-3d.webp",url:"wave-road-3d.html"},
-  {title:"Italian Brainrot Baby Clicker",tag:"clicker",img:"media/posts/732/italian-brainrot-baby-clicker-game.webp",url:"italian-brainrot-baby-clicker.html"},
-  {title:"Geometry Vibes Monster",tag:"skill",img:"media/posts/731/geometry-vibes-monster-game.webp",url:"geometry-vibes-monster.html"},
-  {title:"Rocket Hero Clicker",tag:"clicker",img:"media/posts/728/rocket-hero-clicker.webp",url:"rocket-hero-clicker.html"},
-  {title:"Snow Rider 3D",tag:"arcade",img:"media/posts/680/snow-rider-game.webp",url:"snow-rider-3d.html"},
-  {title:"Chess",tag:"strategy",img:"media/posts/688/chess-freezenova.webp",url:"chess.html"},
-  {title:"Fast Food Manager",tag:"simulator",img:"media/posts/723/fast-food-manager-game.webp",url:"fast-food-manager.html"},
+  {title:"Subway Surfers",tag:"arcade",img:"media/posts/39/subway-surfers.jpg",url:"subway-surfers.html"},
+  {title:"Slope",tag:"arcade",img:"media/posts/42/slope.jpg",url:"slope.html"},
+  {title:"1v1.LOL",tag:"shooting",img:"media/posts/55/1v1lol.jpg",url:"1v1-lol.html"},
+  {title:"Smash Karts",tag:"racing",img:"media/posts/629/smash-karts.webp",url:"smash-karts.html"},
+  {title:"Shell Shockers",tag:"shooting",img:"media/posts/56/shellshockers.jpg",url:"shell-shockers.html"},
   {title:"CubeCraft Survival",tag:"minecraft",img:"media/posts/722/cubecraft-survival-game.webp",url:"cubecraft-survival.html"},
   {title:"Clash Of Skulls",tag:"strategy",img:"media/posts/713/clash-of-skulls-games.webp",url:"clash-of-skulls.html"},
   {title:"Clash of Tanks",tag:"strategy",img:"media/posts/715/clash-of-tanks-game.webp",url:"clash-of-tanks.html"},
@@ -196,8 +286,29 @@ const games = [
   {title:"Love Tester",tag:"casual",img:"media/posts/152/test.jpg",url:"love-tester.html"},
 ];
 
+/* Featured picks */
+const featuredTitles = ["Slope","1v1.LOL","Drift Hunters 2024","Crazy Cattle 3D","Moto X3M","Friday Night Funkin","FNAF","Shell Shockers"];
+
 let activeCat = "all";
 let activeList = [];
+
+/* Set game count in hero */
+document.getElementById("totalCount").textContent = games.length;
+
+/* Render featured */
+function renderFeatured() {
+  const fg = document.getElementById("featGrid");
+  const list = games.filter(g => featuredTitles.includes(g.title));
+  fg.innerHTML = list.map(g => `
+    <div class="feat-card" onclick="openGameByTitle('${g.title.replace(/'/g,"\\'")}')">
+      <img class="thumb" src="${BASE}${g.img}" alt="${g.title}" loading="lazy" onerror="this.style.background='#1a1a3a'">
+      <div class="feat-badge">⭐ Featured</div>
+      <div class="cinfo">
+        <div class="ctitle">${g.title}</div>
+        <span class="ctag">${g.tag}</span>
+      </div>
+    </div>`).join("");
+}
 
 function setCategory(el, cat) {
   if (el) {
@@ -206,11 +317,15 @@ function setCategory(el, cat) {
   } else {
     document.querySelectorAll(".cat").forEach(c => {
       c.classList.remove("on");
-      if (c.textContent.toLowerCase() === cat || (cat==='all' && c.textContent==='All')) c.classList.add("on");
+      const match = cat === 'all' ? c.textContent.includes('All') : c.textContent.toLowerCase().includes(cat);
+      if (match) c.classList.add("on");
     });
   }
   activeCat = cat;
-  document.getElementById("secLabel").textContent = cat === "all" ? "All Games" : cat.charAt(0).toUpperCase()+cat.slice(1)+" Games";
+  const label = cat === "all" ? "All Games" : cat.charAt(0).toUpperCase()+cat.slice(1)+" Games";
+  document.getElementById("secLabel").textContent = label;
+  /* Hide featured when filtering */
+  document.getElementById("featSection").style.display = (cat === "all" && !document.getElementById("q").value) ? "block" : "none";
   applyFilters();
 }
 
@@ -219,16 +334,27 @@ function applyFilters() {
   let list = games;
   if (activeCat !== "all") list = list.filter(g => g.tag === activeCat);
   if (q) list = list.filter(g => g.title.toLowerCase().includes(q) || g.tag.includes(q));
+  /* Hide featured during search */
+  document.getElementById("featSection").style.display = (activeCat === "all" && !q) ? "block" : "none";
   activeList = list;
+  document.getElementById("gameCount").textContent = list.length + " game" + (list.length !== 1 ? "s" : "");
   render(list);
 }
 
 function render(list) {
   const grid = document.getElementById("grid");
-  if (!list.length) { grid.innerHTML = '<div class="no-res">No games found.</div>'; return; }
+  if (!list.length) {
+    grid.innerHTML = '<div class="no-res"><div class="no-res-icon">🔍</div>No games found. Try a different search!</div>';
+    return;
+  }
   grid.innerHTML = list.map((g,i) => `
     <div class="card" onclick="openGame(${i})">
       <img class="thumb" src="${BASE}${g.img}" alt="${g.title}" loading="lazy" onerror="this.style.background='#1a1a3a'">
+      <div class="play-overlay">
+        <div class="play-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+        </div>
+      </div>
       <div class="cinfo">
         <div class="ctitle">${g.title}</div>
         <div class="ctag">${g.tag}</div>
@@ -238,6 +364,15 @@ function render(list) {
 
 function openGame(i) {
   const g = activeList[i];
+  _launch(g);
+}
+
+function openGameByTitle(title) {
+  const g = games.find(x => x.title === title);
+  if (g) _launch(g);
+}
+
+function _launch(g) {
   document.getElementById("pTitle").textContent = g.title;
   document.getElementById("pTag").textContent = g.tag.toUpperCase();
   document.getElementById("pFrame").src = BASE + g.url;
@@ -251,7 +386,15 @@ function closePlayer() {
   document.body.style.overflow = "";
 }
 
+function toggleFullscreen() {
+  const frame = document.getElementById("pFrame");
+  if (frame.requestFullscreen) frame.requestFullscreen();
+  else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+}
+
 document.addEventListener("keydown", e => { if (e.key === "Escape") closePlayer(); });
+
+renderFeatured();
 applyFilters();
 </script>
 </body>

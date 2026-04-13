@@ -224,8 +224,8 @@ const games = [
   {title:"Subway Surfers",tag:"arcade",img:"media/posts/39/subway-surfers.jpg",url:"subway-surfers.html"},
   {title:"Slope",tag:"arcade",img:"media/posts/42/slope.jpg",url:"slope.html"},
   {title:"1v1.LOL",tag:"shooting",img:"media/posts/55/1v1lol.jpg",url:"1v1-lol.html"},
-  {title:"Smash Karts",tag:"racing",img:"media/posts/629/smash-karts.webp",url:"smash-karts.html"},
-  {title:"Shell Shockers",tag:"shooting",img:"media/posts/56/shellshockers.jpg",url:"shell-shockers.html"},
+  {title:"OvO Parkour",tag:"arcade",img:"media/posts/686/ovo-online.webp",url:"ovo-online.html"},
+  {title:"Retro Bowl",tag:"sports",img:"media/posts/454/tennis-masters-512.jpg",url:"retro-bowl.html"},
   {title:"CubeCraft Survival",tag:"minecraft",img:"media/posts/722/cubecraft-survival-game.webp",url:"cubecraft-survival.html"},
   {title:"Clash Of Skulls",tag:"strategy",img:"media/posts/713/clash-of-skulls-games.webp",url:"clash-of-skulls.html"},
   {title:"Clash of Tanks",tag:"strategy",img:"media/posts/715/clash-of-tanks-game.webp",url:"clash-of-tanks.html"},
@@ -287,16 +287,16 @@ const games = [
   {title:"Love Tester",tag:"casual",img:"media/posts/152/test.jpg",url:"love-tester.html"},
 ];
 
-/* Featured picks with emoji for fallback display */
+/* Featured picks with direct image URLs so thumbnails always load */
 const featuredGames = [
-  {title:"Slope",tag:"arcade",emoji:"🎿",url:"slope.html",img:"media/posts/42/slope.jpg"},
-  {title:"1v1.LOL",tag:"shooting",emoji:"🎯",url:"1v1-lol.html",img:"media/posts/55/1v1lol.jpg"},
-  {title:"Drift Hunters 2024",tag:"drift",emoji:"🚗",url:"drift-hunters-2024.html",img:"media/posts/444/drift-hunters-2024-freezenova.jpg"},
-  {title:"Crazy Cattle 3D",tag:"action",emoji:"🐄",url:"crazy-cattle-3d.html",img:"media/posts/687/crazy-cattle-3d-unblocked.webp"},
-  {title:"Moto X3M",tag:"bike",emoji:"🏍️",url:"moto-x3m.html",img:"media/posts/448/Moto-X3M-Original-512x512.jpg"},
-  {title:"Friday Night Funkin",tag:"arcade",emoji:"🎵",url:"friday-night-funkin-fnf.html",img:"media/posts/447/friday-night-funkin-unblocked.jpg"},
-  {title:"FNAF",tag:"scary",emoji:"👻",url:"fnaf.html",img:"media/posts/594/fnaf-512.webp"},
-  {title:"Shell Shockers",tag:"shooting",emoji:"🥚",url:"shell-shockers.html",img:"media/posts/56/shellshockers.jpg"},
+  {title:"Slope",tag:"arcade",emoji:"🎿",url:"slope.html",thumb:"https://unblocked-games.s3.amazonaws.com/media/posts/42/slope.jpg"},
+  {title:"1v1.LOL",tag:"shooting",emoji:"🎯",url:"1v1-lol.html",thumb:"https://unblocked-games.s3.amazonaws.com/media/posts/55/1v1lol.jpg"},
+  {title:"Drift Hunters 2024",tag:"drift",emoji:"🚗",url:"drift-hunters-2024.html",thumb:"https://unblocked-games.s3.amazonaws.com/media/posts/444/drift-hunters-2024-freezenova.jpg"},
+  {title:"Crazy Cattle 3D",tag:"action",emoji:"🐄",url:"crazy-cattle-3d.html",thumb:"https://unblocked-games.s3.amazonaws.com/media/posts/687/crazy-cattle-3d-unblocked.webp"},
+  {title:"Moto X3M",tag:"bike",emoji:"🏍️",url:"moto-x3m.html",thumb:"https://unblocked-games.s3.amazonaws.com/media/posts/448/Moto-X3M-Original-512x512.jpg"},
+  {title:"Friday Night Funkin",tag:"arcade",emoji:"🎵",url:"friday-night-funkin-fnf.html",thumb:"https://unblocked-games.s3.amazonaws.com/media/posts/447/friday-night-funkin-unblocked.jpg"},
+  {title:"FNAF",tag:"scary",emoji:"👻",url:"fnaf.html",thumb:"https://unblocked-games.s3.amazonaws.com/media/posts/594/fnaf-512.webp"},
+  {title:"Drift Hunters",tag:"drift",emoji:"🏎️",url:"drift-hunters.html",thumb:"https://unblocked-games.s3.amazonaws.com/media/posts/443/drift-hunters-game.jpg"},
 ];
 
 let activeCat = "all";
@@ -313,7 +313,7 @@ function renderFeatured() {
       <div class="feat-card-img-wrap" style="position:relative">
         <img
           class="thumb"
-          src="${BASE}${g.img}"
+          src="${g.thumb}"
           alt="${g.title}"
           loading="lazy"
           style="width:100%;height:120px;object-fit:cover;display:block;background:#111"

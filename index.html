@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unblocked Games FreezeNova</title>
+<title>Kermy's Unblocked Games</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff;min-height:100vh}
@@ -42,7 +42,8 @@ body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff;min-height:
 .feat-card{background:#1a1a2e;border:1px solid #2a2a44;border-radius:12px;overflow:hidden;cursor:pointer;transition:transform 0.18s,border-color 0.18s;position:relative}
 .feat-card:hover{transform:translateY(-4px);border-color:#7c6ef5}
 .feat-card .thumb{width:100%;height:120px;object-fit:cover;display:block;background:#111}
-.feat-badge{position:absolute;top:8px;left:8px;background:#7c6ef5;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px}
+.feat-card .thumb-fallback{width:100%;height:120px;display:flex;align-items:center;justify-content:center;font-size:48px;background:linear-gradient(135deg,#1a1a38,#251f44);flex-shrink:0}
+.feat-badge{position:absolute;top:8px;left:8px;background:#7c6ef5;color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px;z-index:2}
 .feat-card .cinfo{padding:10px 12px 12px}
 .feat-card .ctitle{font-size:13px;font-weight:700;color:#e8e8e8;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .feat-card .ctag{font-size:10px;color:#7c6ef5;background:#1e1a3a;padding:2px 8px;border-radius:10px;display:inline-block;text-transform:capitalize}
@@ -117,7 +118,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff;min-height:
 <body>
 
 <nav class="navbar">
-  <div class="logo" onclick="setCategory(null,'all')" style="cursor:pointer">FREEZE<span>NOVA</span></div>
+  <div class="logo" onclick="setCategory(null,'all')" style="cursor:pointer">KERMY'S<span> GAMES</span></div>
   <div class="nav-links">
     <a onclick="setCategory(null,'all')">Home</a>
     <a onclick="setCategory(null,'action')">Action</a>
@@ -134,7 +135,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff;min-height:
 </nav>
 
 <div class="hero">
-  <h1>Unblocked Games <span>FreezeNova</span></h1>
+  <h1>Kermy's <span>Unblocked Games</span></h1>
   <p>Free online games — play anywhere, anytime. No downloads needed.</p>
   <div class="hero-stats">
     <div class="hstat"><div class="hstat-num" id="totalCount">0</div><div class="hstat-lbl">Games</div></div>
@@ -190,7 +191,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff;min-height:
 <div class="player-bg" id="player">
   <div class="player-bar">
     <div class="player-left">
-      <div class="player-logo">FREEZE<span>NOVA</span></div>
+      <div class="player-logo">KERMY'S<span> GAMES</span></div>
       <span class="player-title" id="pTitle"></span>
       <span class="player-tag" id="pTag"></span>
     </div>
@@ -203,7 +204,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff;min-height:
 </div>
 
 <div class="footer">
-  © 2026 <strong>FreezeNova</strong> Unblocked Games &nbsp;·&nbsp; Play free games from school or anywhere &nbsp;·&nbsp; No downloads required<br>
+  © 2026 <strong>Kermy's Unblocked Games</strong> &nbsp;·&nbsp; Play free games from school or anywhere &nbsp;·&nbsp; No downloads required<br>
   <span style="color:#333;font-size:10px;margin-top:4px;display:block">Press <kbd style="background:#1a1a2e;border:1px solid #333;padding:1px 5px;border-radius:3px;color:#888">ESC</kbd> to close any game</span>
 </div>
 
@@ -286,8 +287,17 @@ const games = [
   {title:"Love Tester",tag:"casual",img:"media/posts/152/test.jpg",url:"love-tester.html"},
 ];
 
-/* Featured picks */
-const featuredTitles = ["Slope","1v1.LOL","Drift Hunters 2024","Crazy Cattle 3D","Moto X3M","Friday Night Funkin","FNAF","Shell Shockers"];
+/* Featured picks with emoji for fallback display */
+const featuredGames = [
+  {title:"Slope",tag:"arcade",emoji:"🎿",url:"slope.html",img:"media/posts/42/slope.jpg"},
+  {title:"1v1.LOL",tag:"shooting",emoji:"🎯",url:"1v1-lol.html",img:"media/posts/55/1v1lol.jpg"},
+  {title:"Drift Hunters 2024",tag:"drift",emoji:"🚗",url:"drift-hunters-2024.html",img:"media/posts/444/drift-hunters-2024-freezenova.jpg"},
+  {title:"Crazy Cattle 3D",tag:"action",emoji:"🐄",url:"crazy-cattle-3d.html",img:"media/posts/687/crazy-cattle-3d-unblocked.webp"},
+  {title:"Moto X3M",tag:"bike",emoji:"🏍️",url:"moto-x3m.html",img:"media/posts/448/Moto-X3M-Original-512x512.jpg"},
+  {title:"Friday Night Funkin",tag:"arcade",emoji:"🎵",url:"friday-night-funkin-fnf.html",img:"media/posts/447/friday-night-funkin-unblocked.jpg"},
+  {title:"FNAF",tag:"scary",emoji:"👻",url:"fnaf.html",img:"media/posts/594/fnaf-512.webp"},
+  {title:"Shell Shockers",tag:"shooting",emoji:"🥚",url:"shell-shockers.html",img:"media/posts/56/shellshockers.jpg"},
+];
 
 let activeCat = "all";
 let activeList = [];
@@ -298,11 +308,20 @@ document.getElementById("totalCount").textContent = games.length;
 /* Render featured */
 function renderFeatured() {
   const fg = document.getElementById("featGrid");
-  const list = games.filter(g => featuredTitles.includes(g.title));
-  fg.innerHTML = list.map(g => `
+  fg.innerHTML = featuredGames.map(g => `
     <div class="feat-card" onclick="openGameByTitle('${g.title.replace(/'/g,"\\'")}')">
-      <img class="thumb" src="${BASE}${g.img}" alt="${g.title}" loading="lazy" onerror="this.style.background='#1a1a3a'">
-      <div class="feat-badge">⭐ Featured</div>
+      <div class="feat-card-img-wrap" style="position:relative">
+        <img
+          class="thumb"
+          src="${BASE}${g.img}"
+          alt="${g.title}"
+          loading="lazy"
+          style="width:100%;height:120px;object-fit:cover;display:block;background:#111"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        >
+        <div class="thumb-fallback" style="display:none">${g.emoji}</div>
+        <div class="feat-badge">⭐ Featured</div>
+      </div>
       <div class="cinfo">
         <div class="ctitle">${g.title}</div>
         <span class="ctag">${g.tag}</span>
@@ -368,7 +387,7 @@ function openGame(i) {
 }
 
 function openGameByTitle(title) {
-  const g = games.find(x => x.title === title);
+  const g = games.find(x => x.title === title) || featuredGames.find(x => x.title === title);
   if (g) _launch(g);
 }
 

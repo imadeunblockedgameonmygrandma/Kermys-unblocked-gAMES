@@ -64,8 +64,10 @@ body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff;min-height:
 .card{background:#1a1a2e;border:1px solid #2a2a44;border-radius:10px;overflow:hidden;cursor:pointer;transition:transform 0.18s,border-color 0.18s;position:relative}
 .card:hover{transform:translateY(-3px);border-color:#7c6ef5}
 .card:hover .play-overlay{opacity:1}
-.thumb{width:100%;height:100px;object-fit:cover;display:block;background:#111}
-.play-overlay{position:absolute;top:0;left:0;width:100%;height:100px;background:rgba(124,110,245,0.25);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s}
+.card-image-container{width:100%;height:100px;background:linear-gradient(135deg,#1a1a38,#251f44);display:flex;align-items:center;justify-content:center;font-size:36px;position:relative;overflow:hidden}
+.thumb{width:100%;height:100%;object-fit:cover;display:block;background:#111}
+.thumb.loading{opacity:0.5}
+.play-overlay{position:absolute;top:0;left:0;width:100%;height:100px;background:rgba(124,110,245,0.25);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity 0.2s;z-index:1}
 .play-icon{width:36px;height:36px;background:#7c6ef5;border-radius:50%;display:flex;align-items:center;justify-content:center}
 .play-icon svg{margin-left:3px}
 .cinfo{padding:8px 10px 10px}
@@ -211,159 +213,156 @@ body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff;min-height:
 <script>
 const BASE = "https://unblocked-games.s3.amazonaws.com/";
 
+// Enhanced game list with better image URLs and emoji fallbacks
 const games = [
-  {title:"DuckCraft",tag:"minecraft",img:"media/posts/745/duckcraft-unblocked.webp",url:"duckcraft.html"},
-  {title:"Velocity Rush",tag:"skill",img:"media/posts/760/velocity-rush-unblocked.webp",url:"velocity-rush.html"},
-  {title:"Snaker io",tag:"io",img:"media/posts/759/snaker-io-unblocked.webp",url:"snaker-io.html"},
-  {title:"Geometry Vector",tag:"arcade",img:"media/posts/758/geometry-vector-unblocked.webp",url:"geometry-vector.html"},
-  {title:"Jungle Mart",tag:"idle",img:"media/posts/757/jungle-mart-unblocked.webp",url:"jungle-mart.html"},
-  {title:"Riddle School",tag:"adventure",img:"media/posts/750/riddle-school-unblocked.webp",url:"riddle-school.html"},
-  {title:"Backflip Challenge",tag:"skill",img:"media/posts/743/backflip-challenge-game.webp",url:"backflip-challenge.html"},
-  {title:"Age Of Battle",tag:"strategy",img:"media/posts/744/age-of-battle-game.webp",url:"age-of-battle.html"},
-  {title:"Dublix",tag:"multiplayer",img:"media/posts/727/dublix-game.webp",url:"dublix.html"},
-
-  {title:"OvO Parkour",tag:"arcade",img:"media/posts/686/ovo-online.webp",url:"ovo-online.html"},
-  {title:"Retro Bowl",tag:"sports",img:"media/posts/454/tennis-masters-512.jpg",url:"retro-bowl.html"},
-  {title:"CubeCraft Survival",tag:"minecraft",img:"media/posts/722/cubecraft-survival-game.webp",url:"cubecraft-survival.html"},
-  {title:"Clash Of Skulls",tag:"strategy",img:"media/posts/713/clash-of-skulls-games.webp",url:"clash-of-skulls.html"},
-  {title:"Clash of Tanks",tag:"strategy",img:"media/posts/715/clash-of-tanks-game.webp",url:"clash-of-tanks.html"},
-  {title:"Crown Defense",tag:"strategy",img:"media/posts/717/crown-defense-game.webp",url:"crown-defense.html"},
-  {title:"Snow Rush 3D",tag:"arcade",img:"media/posts/714/snow-rush-3d.webp",url:"snow-rush-3d.html"},
-  {title:"Backflip Dive 3D",tag:"skill",img:"media/posts/719/backflip-diver-3d.webp",url:"backflip-dive-3d.html"},
-  {title:"Cool Brainrot Clicker",tag:"clicker",img:"media/posts/720/cool-brainrot-clicker-game.webp",url:"cool-brainrot-clicker.html"},
-  {title:"Geometry Vibes",tag:"escape",img:"media/posts/707/geometry-vibes-game.webp",url:"geometry-vibes.html"},
-  {title:"Basketball Stars",tag:"sports",img:"media/posts/449/Basketball-Stars-512x512.jpg",url:"basketball-stars.html"},
-  {title:"Highway Traffic",tag:"car",img:"media/posts/32/HighwayTraffic512.jpg",url:"highway-traffic.html"},
-  {title:"Traffic Jam 3D",tag:"car",img:"media/posts/693/traffic-jam-3d-game.webp",url:"traffic-jam-3d.html"},
-  {title:"Idle Breakout",tag:"clicker",img:"media/posts/496/idle-breakout.webp",url:"idle-breakout.html"},
-  {title:"Idle Mining Empire",tag:"idle",img:"media/posts/372/idle-mining-empire-512.jpg",url:"idle-mining-empire.html"},
-  {title:"Moto X3M",tag:"bike",img:"media/posts/448/Moto-X3M-Original-512x512.jpg",url:"moto-x3m.html"},
-  {title:"Extreme Run 3D",tag:"arcade",img:"media/posts/684/extreme-run-3d.webp",url:"extreme-run-3d.html"},
-  {title:"Checkout Frenzy",tag:"simulator",img:"media/posts/666/checkout-frenzy-store-simulator.webp",url:"checkout-frenzy.html"},
-  {title:"Escape Car",tag:"car",img:"media/posts/679/escape-car-game.webp",url:"escape-car.html"},
-  {title:"Tap Tap Shots",tag:"sports",img:"media/posts/406/tap-tap-shots-512.jpg",url:"tap-tap-shots.html"},
-  {title:"Su Battle Royale",tag:"io",img:"media/posts/579/battle-royale-2d.webp",url:"su-battle-royale.html"},
-  {title:"Summer Rider 3D",tag:"arcade",img:"media/posts/699/summer-rider-3d.webp",url:"summer-rider-3d.html"},
-  {title:"Brainrot Clicker",tag:"clicker",img:"media/posts/700/brainrot-clicker-game.webp",url:"brainrot-clicker.html"},
-  {title:"Fast Food Rush",tag:"simulator",img:"media/posts/671/fast-food-rush.webp",url:"fast-food-rush.html"},
-  {title:"Drift Hunters 2024",tag:"drift",img:"media/posts/444/drift-hunters-2024-freezenova.jpg",url:"drift-hunters-2024.html"},
-  {title:"Friday Night Funkin",tag:"arcade",img:"media/posts/447/friday-night-funkin-unblocked.jpg",url:"friday-night-funkin-fnf.html"},
-  {title:"Drift Hunters",tag:"drift",img:"media/posts/443/drift-hunters-game.jpg",url:"drift-hunters.html"},
-  {title:"A Small World Cup",tag:"sports",img:"media/posts/592/a-small-world-cup-512.webp",url:"a-small-world-cup.html"},
-  {title:"Watermelon Suika",tag:"arcade",img:"media/posts/681/watermelon-suika-game.webp",url:"watermelon-suika.html"},
-  {title:"Real Flight Simulator",tag:"simulator",img:"media/posts/335/512.jpg",url:"real-flight-simulator.html"},
-  {title:"Stickman GTA City",tag:"simulator",img:"media/posts/634/stickman-city-512.webp",url:"stickman-gta-city.html"},
-  {title:"Color Tunnel",tag:"arcade",img:"media/posts/711/color-tunnel-game.webp",url:"color-tunnel.html"},
-  {title:"Crazy Cattle 3D",tag:"action",img:"media/posts/687/crazy-cattle-3d-unblocked.webp",url:"crazy-cattle-3d.html"},
-  {title:"FNAF",tag:"scary",img:"media/posts/594/fnaf-512.webp",url:"fnaf.html"},
-  {title:"Ninja Obby Parkour",tag:"escape",img:"media/posts/704/ninja-obby-parkour.webp",url:"ninja-obby-parkour.html"},
-  {title:"Eggy Car",tag:"driving",img:"media/posts/682/eggy-car.webp",url:"eggy-car.html"},
-  {title:"Football Legends",tag:"sports",img:"media/posts/521/Football-Legends-game.webp",url:"football-legends.html"},
-  {title:"Drift Boss",tag:"drift",img:"media/posts/363/drift_boss_unblocked_512.jpg",url:"drift-boss.html"},
-  {title:"StackBall.io",tag:"arcade",img:"media/posts/51/stack.jpg",url:"stackballio.html"},
-  {title:"Moto X3M Winter",tag:"bike",img:"media/posts/457/Moto-X3M-Winter-512x512.jpg",url:"moto-x3m-winter.html"},
-  {title:"Archer Hero",tag:"action",img:"media/posts/346/512-2.jpg",url:"archer-hero.html"},
-  {title:"Tennis Masters",tag:"sports",img:"media/posts/454/tennis-masters-512.jpg",url:"tennis-masters.html"},
-  {title:"FNAF 2",tag:"scary",img:"media/posts/597/fnaf-2-game.webp",url:"fnaf-2.html"},
-  {title:"Stickman Ragdoll",tag:"arcade",img:"media/posts/57/stickman.jpg",url:"stickman-ragdoll.html"},
-  {title:"Moto X3M Spooky Land",tag:"bike",img:"media/posts/455/Moto-X3M-Halloween-512x512.jpg",url:"moto-x3m-spooky-land.html"},
-  {title:"Basket Hoop",tag:"sports",img:"media/posts/568/basket-hoop-512.webp",url:"basket-hoop.html"},
-  {title:"Spacebar Clicker",tag:"clicker",img:"media/posts/497/spacebark-clicker.webp",url:"spacebar-clicker.html"},
-  {title:"Edys Car Simulator",tag:"car",img:"media/posts/238/512-2.jpg",url:"edys-car-simulator.html"},
-  {title:"Italian Brainrot Survive Parkour",tag:"escape",img:"media/posts/701/italian-brainrot-survive-game.webp",url:"italian-brainrot-survive-parkour.html"},
-  {title:"Dark Forest Idle",tag:"idle",img:"media/posts/586/dark-forest-idle-512.webp",url:"dark-forest-idle.html"},
-  {title:"Block Blast",tag:"puzzle",img:"media/posts/619/block-blast.webp",url:"block-blast.html"},
-  {title:"Geometry Dash FreezeNova",tag:"escape",img:"media/posts/415/geometry-dash-freezenova.jpg",url:"geometry-dash-freezenova.html"},
-  {title:"Survival Karts",tag:"racing",img:"media/posts/625/survival-karts.webp",url:"survival-karts.html"},
-  {title:"OvO Online",tag:"multiplayer",img:"media/posts/686/ovo-online.webp",url:"ovo-online.html"},
-  {title:"Stickman Parkour",tag:"escape",img:"media/posts/573/stickman-parkour-512.webp",url:"stickman-parkour.html"},
-  {title:"Moto X3M Pool Party",tag:"bike",img:"media/posts/452/Moto-X3M-Pool-Party-512x512.jpg",url:"moto-x3m-pool-party.html"},
-  {title:"Tunnel Road",tag:"arcade",img:"media/posts/695/tunnel-road-freezenova.webp",url:"tunnel-road.html"},
-  {title:"Drift Rider",tag:"drift",img:"media/posts/428/drift-rider.jpg",url:"drift-rider.html"},
-  {title:"GTA Simulator",tag:"simulator",img:"media/posts/365/gta-simulator.jpg",url:"gta-simulator.html"},
-  {title:"Crazy Shooters 2",tag:"shooting",img:"media/posts/90/512-4.jpg",url:"crazy-shooters-2.html"},
-  {title:"Love Tester",tag:"casual",img:"media/posts/152/test.jpg",url:"love-tester.html"},
+  {title:"DuckCraft",tag:"minecraft",img:"media/posts/745/duckcraft-unblocked.webp",url:"duckcraft.html",emoji:"⛏️"},
+  {title:"Velocity Rush",tag:"skill",img:"media/posts/760/velocity-rush-unblocked.webp",url:"velocity-rush.html",emoji:"🚀"},
+  {title:"Snaker io",tag:"io",img:"media/posts/759/snaker-io-unblocked.webp",url:"snaker-io.html",emoji:"🐍"},
+  {title:"Geometry Vector",tag:"arcade",img:"media/posts/758/geometry-vector-unblocked.webp",url:"geometry-vector.html",emoji:"🔷"},
+  {title:"Jungle Mart",tag:"idle",img:"media/posts/757/jungle-mart-unblocked.webp",url:"jungle-mart.html",emoji:"🏪"},
+  {title:"Riddle School",tag:"adventure",img:"media/posts/750/riddle-school-unblocked.webp",url:"riddle-school.html",emoji:"🎓"},
+  {title:"Backflip Challenge",tag:"skill",img:"media/posts/743/backflip-challenge-game.webp",url:"backflip-challenge.html",emoji:"🤸"},
+  {title:"Age Of Battle",tag:"strategy",img:"media/posts/744/age-of-battle-game.webp",url:"age-of-battle.html",emoji:"⚔️"},
+  {title:"Dublix",tag:"multiplayer",img:"media/posts/727/dublix-game.webp",url:"dublix.html",emoji:"👥"},
+  {title:"OvO Parkour",tag:"arcade",img:"media/posts/686/ovo-online.webp",url:"ovo-online.html",emoji:"🏃"},
+  {title:"Retro Bowl",tag:"sports",img:"media/posts/454/tennis-masters-512.jpg",url:"retro-bowl.html",emoji:"🏈"},
+  {title:"CubeCraft Survival",tag:"minecraft",img:"media/posts/722/cubecraft-survival-game.webp",url:"cubecraft-survival.html",emoji:"🧱"},
+  {title:"Clash Of Skulls",tag:"strategy",img:"media/posts/713/clash-of-skulls-games.webp",url:"clash-of-skulls.html",emoji:"💀"},
+  {title:"Clash of Tanks",tag:"strategy",img:"media/posts/715/clash-of-tanks-game.webp",url:"clash-of-tanks.html",emoji:"🛖"},
+  {title:"Crown Defense",tag:"strategy",img:"media/posts/717/crown-defense-game.webp",url:"crown-defense.html",emoji:"👑"},
+  {title:"Snow Rush 3D",tag:"arcade",img:"media/posts/714/snow-rush-3d.webp",url:"snow-rush-3d.html",emoji:"❄️"},
+  {title:"Backflip Dive 3D",tag:"skill",img:"media/posts/719/backflip-diver-3d.webp",url:"backflip-dive-3d.html",emoji:"🤽"},
+  {title:"Cool Brainrot Clicker",tag:"clicker",img:"media/posts/720/cool-brainrot-clicker-game.webp",url:"cool-brainrot-clicker.html",emoji:"🧠"},
+  {title:"Geometry Vibes",tag:"escape",img:"media/posts/707/geometry-vibes-game.webp",url:"geometry-vibes.html",emoji:"🌀"},
+  {title:"Basketball Stars",tag:"sports",img:"media/posts/449/Basketball-Stars-512x512.jpg",url:"basketball-stars.html",emoji:"🏀"},
+  {title:"Highway Traffic",tag:"car",img:"media/posts/32/HighwayTraffic512.jpg",url:"highway-traffic.html",emoji:"🚗"},
+  {title:"Traffic Jam 3D",tag:"car",img:"media/posts/693/traffic-jam-3d-game.webp",url:"traffic-jam-3d.html",emoji:"🚙"},
+  {title:"Idle Breakout",tag:"clicker",img:"media/posts/496/idle-breakout.webp",url:"idle-breakout.html",emoji:"🧱"},
+  {title:"Idle Mining Empire",tag:"idle",img:"media/posts/372/idle-mining-empire-512.jpg",url:"idle-mining-empire.html",emoji:"⛏️"},
+  {title:"Moto X3M",tag:"bike",img:"media/posts/448/Moto-X3M-Original-512x512.jpg",url:"moto-x3m.html",emoji:"🏍️"},
+  {title:"Extreme Run 3D",tag:"arcade",img:"media/posts/684/extreme-run-3d.webp",url:"extreme-run-3d.html",emoji:"🏃"},
+  {title:"Checkout Frenzy",tag:"simulator",img:"media/posts/666/checkout-frenzy-store-simulator.webp",url:"checkout-frenzy.html",emoji:"🛒"},
+  {title:"Escape Car",tag:"car",img:"media/posts/679/escape-car-game.webp",url:"escape-car.html",emoji:"🚗"},
+  {title:"Tap Tap Shots",tag:"sports",img:"media/posts/406/tap-tap-shots-512.jpg",url:"tap-tap-shots.html",emoji:"🎯"},
+  {title:"Su Battle Royale",tag:"io",img:"media/posts/579/battle-royale-2d.webp",url:"su-battle-royale.html",emoji:"🎮"},
+  {title:"Summer Rider 3D",tag:"arcade",img:"media/posts/699/summer-rider-3d.webp",url:"summer-rider-3d.html",emoji:"🏄"},
+  {title:"Brainrot Clicker",tag:"clicker",img:"media/posts/700/brainrot-clicker-game.webp",url:"brainrot-clicker.html",emoji:"🧠"},
+  {title:"Fast Food Rush",tag:"simulator",img:"media/posts/671/fast-food-rush.webp",url:"fast-food-rush.html",emoji:"🍔"},
+  {title:"Drift Hunters 2024",tag:"drift",img:"media/posts/444/drift-hunters-2024-freezenova.jpg",url:"drift-hunters-2024.html",emoji:"🚗"},
+  {title:"Friday Night Funkin",tag:"arcade",img:"media/posts/447/friday-night-funkin-unblocked.jpg",url:"friday-night-funkin-fnf.html",emoji:"🎵"},
+  {title:"Drift Hunters",tag:"drift",img:"media/posts/443/drift-hunters-game.jpg",url:"drift-hunters.html",emoji:"🏎️"},
+  {title:"A Small World Cup",tag:"sports",img:"media/posts/592/a-small-world-cup-512.webp",url:"a-small-world-cup.html",emoji:"⚽"},
+  {title:"Watermelon Suika",tag:"arcade",img:"media/posts/681/watermelon-suika-game.webp",url:"watermelon-suika.html",emoji:"🍉"},
+  {title:"Real Flight Simulator",tag:"simulator",img:"media/posts/335/512.jpg",url:"real-flight-simulator.html",emoji:"✈️"},
+  {title:"Stickman GTA City",tag:"simulator",img:"media/posts/634/stickman-city-512.webp",url:"stickman-gta-city.html",emoji:"👾"},
+  {title:"Color Tunnel",tag:"arcade",img:"media/posts/711/color-tunnel-game.webp",url:"color-tunnel.html",emoji:"🌈"},
+  {title:"Crazy Cattle 3D",tag:"action",img:"media/posts/687/crazy-cattle-3d-unblocked.webp",url:"crazy-cattle-3d.html",emoji:"🐄"},
+  {title:"FNAF",tag:"scary",img:"media/posts/594/fnaf-512.webp",url:"fnaf.html",emoji:"👻"},
+  {title:"Ninja Obby Parkour",tag:"escape",img:"media/posts/704/ninja-obby-parkour.webp",url:"ninja-obby-parkour.html",emoji:"🥷"},
+  {title:"Eggy Car",tag:"driving",img:"media/posts/682/eggy-car.webp",url:"eggy-car.html",emoji:"🥚"},
+  {title:"Football Legends",tag:"sports",img:"media/posts/521/Football-Legends-game.webp",url:"football-legends.html",emoji:"🏈"},
+  {title:"Drift Boss",tag:"drift",img:"media/posts/363/drift_boss_unblocked_512.jpg",url:"drift-boss.html",emoji:"🚗"},
+  {title:"StackBall.io",tag:"arcade",img:"media/posts/51/stack.jpg",url:"stackballio.html",emoji:"🎱"},
+  {title:"Moto X3M Winter",tag:"bike",img:"media/posts/457/Moto-X3M-Winter-512x512.jpg",url:"moto-x3m-winter.html",emoji:"❄️"},
+  {title:"Archer Hero",tag:"action",img:"media/posts/346/512-2.jpg",url:"archer-hero.html",emoji:"🏹"},
+  {title:"Tennis Masters",tag:"sports",img:"media/posts/454/tennis-masters-512.jpg",url:"tennis-masters.html",emoji:"🎾"},
+  {title:"FNAF 2",tag:"scary",img:"media/posts/597/fnaf-2-game.webp",url:"fnaf-2.html",emoji:"👻"},
+  {title:"Stickman Ragdoll",tag:"arcade",img:"media/posts/57/stickman.jpg",url:"stickman-ragdoll.html",emoji:"🎪"},
+  {title:"Moto X3M Spooky Land",tag:"bike",img:"media/posts/455/Moto-X3M-Halloween-512x512.jpg",url:"moto-x3m-spooky-land.html",emoji:"🎃"},
+  {title:"Basket Hoop",tag:"sports",img:"media/posts/568/basket-hoop-512.webp",url:"basket-hoop.html",emoji:"🏀"},
+  {title:"Spacebar Clicker",tag:"clicker",img:"media/posts/497/spacebark-clicker.webp",url:"spacebar-clicker.html",emoji:"⌨️"},
+  {title:"Edys Car Simulator",tag:"car",img:"media/posts/238/512-2.jpg",url:"edys-car-simulator.html",emoji:"🏎️"},
+  {title:"Italian Brainrot Survive Parkour",tag:"escape",img:"media/posts/701/italian-brainrot-survive-game.webp",url:"italian-brainrot-survive-parkour.html",emoji:"🇮🇹"},
+  {title:"Dark Forest Idle",tag:"idle",img:"media/posts/586/dark-forest-idle-512.webp",url:"dark-forest-idle.html",emoji:"🌲"},
+  {title:"Block Blast",tag:"puzzle",img:"media/posts/619/block-blast.webp",url:"block-blast.html",emoji:"🧩"},
+  {title:"Geometry Dash FreezeNova",tag:"escape",img:"media/posts/415/geometry-dash-freezenova.jpg",url:"geometry-dash-freezenova.html",emoji:"📊"},
+  {title:"Survival Karts",tag:"racing",img:"media/posts/625/survival-karts.webp",url:"survival-karts.html",emoji:"🏎️"},
+  {title:"OvO Online",tag:"multiplayer",img:"media/posts/686/ovo-online.webp",url:"ovo-online.html",emoji:"🏃"},
+  {title:"Stickman Parkour",tag:"escape",img:"media/posts/573/stickman-parkour-512.webp",url:"stickman-parkour.html",emoji:"🤸"},
+  {title:"Moto X3M Pool Party",tag:"bike",img:"media/posts/452/Moto-X3M-Pool-Party-512x512.jpg",url:"moto-x3m-pool-party.html",emoji:"🏊"},
+  {title:"Tunnel Road",tag:"arcade",img:"media/posts/695/tunnel-road-freezenova.webp",url:"tunnel-road.html",emoji:"🛣️"},
+  {title:"Drift Rider",tag:"drift",img:"media/posts/428/drift-rider.jpg",url:"drift-rider.html",emoji:"🏍️"},
+  {title:"GTA Simulator",tag:"simulator",img:"media/posts/365/gta-simulator.jpg",url:"gta-simulator.html",emoji:"🚗"},
+  {title:"Crazy Shooters 2",tag:"shooting",img:"media/posts/90/512-4.jpg",url:"crazy-shooters-2.html",emoji:"🔫"},
+  {title:"Love Tester",tag:"casual",img:"media/posts/152/test.jpg",url:"love-tester.html",emoji:"💕"},
 
   /* ── Games from drive-u-7-home ── */
-  {title:"Slither.io",tag:"io",img:"https://img.gamemonetize.com/mj3bk1xy5xb2tvmqhqqt7jy9u3u5dg2f/512x384.jpg",url:"https://sites.google.com/view/drive-u-7-home/new-games/slither-io"},
-  {title:"Elastic Man",tag:"arcade",img:"https://img.gamemonetize.com/l1o3e4mf3s6x4q3v3m0i2n5p4t7s8r9w/512x384.jpg",emoji:"😮",url:"https://sites.google.com/view/drive-u-7-home/new-games/elastic-man"},
-  {title:"Run 3",tag:"arcade",img:"https://img.gamemonetize.com/8n9k3m2b4v5x7z1q6w0e4r8t2y6u5i3o/512x384.jpg",emoji:"🏃",url:"https://sites.google.com/view/drive-u-7-home/run-3"},
-  {title:"1v1.LOL",tag:"shooting",img:"https://1v1.lol/assets/img/1v1lol-thumbnail.png",url:"https://sites.google.com/view/drive-u-7-home/lol-v-11"},
-  {title:"Snow Rider",tag:"racing",img:"https://img.gamemonetize.com/snow-rider-3d/512x384.jpg",emoji:"🛷",url:"https://sites.google.com/view/drive-u-7-home/snow-rider"},
-  {title:"Cookie Clicker",tag:"clicker",img:"https://orteil.dashnet.org/cookieclicker/img/tile.png",url:"https://sites.google.com/view/drive-u-7-home/cookie-clicker"},
-  {title:"Drift Boss",tag:"drift",img:"https://img.gamemonetize.com/drift-boss/512x384.jpg",emoji:"🚗",url:"https://sites.google.com/view/drive-u-7-home/driving-games/drift-boss"},
-  {title:"Fireboy and Watergirl",tag:"puzzle",img:"https://img.gamemonetize.com/o1s3e4mf3s6x4q3v3m0i2n5p4t7s8r9w/512x384.jpg",emoji:"🔥",url:"https://sites.google.com/view/drive-u-7-home/fireboy-and-watergirl"},
-  {title:"Fireboy and Watergirl 2",tag:"puzzle",img:"https://img.gamemonetize.com/fireboy-watergirl-2/512x384.jpg",emoji:"💧",url:"https://sites.google.com/view/drive-u-7-home/fireboy-and-watergirl-2"},
-  {title:"Fireboy And Watergirl 3",tag:"puzzle",img:"https://img.gamemonetize.com/fireboy-watergirl-3/512x384.jpg",emoji:"🌿",url:"https://sites.google.com/view/drive-u-7-home/fireboy-and-watergirl-3"},
-  {title:"Happy Wheels",tag:"arcade",img:"https://cdn2.unrealengine.com/happy-wheels-screenshot-1-1920x1080-1920x1080-2b0c8e0b7c2b.jpg",emoji:"😂",url:"https://sites.google.com/view/drive-u-7-home/flash-games/happy-wheels"},
-  {title:"Bloons Tower Defense 5",tag:"strategy",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/306020/capsule_616x353.jpg",url:"https://sites.google.com/view/drive-u-7-home/flash-games/bloons-tower-defense-5"},
-  {title:"Bloons TD 6",tag:"strategy",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/960090/capsule_616x353.jpg",url:"https://sites.google.com/view/drive-u-7-home/bloons-td-6"},
-  {title:"Getaway Shootout",tag:"multiplayer",img:"https://img.gamemonetize.com/getaway-shootout/512x384.jpg",emoji:"🔫",url:"https://sites.google.com/view/drive-u-7-home/getaway-shootout"},
-  {title:"House Of Hazards",tag:"multiplayer",img:"https://img.gamemonetize.com/house-of-hazards/512x384.jpg",emoji:"🏠",url:"https://sites.google.com/view/drive-u-7-home/house-of-hazards"},
-  {title:"Smash Karts",tag:"racing",img:"https://smashkarts.io/assets/images/og-image.jpg",url:"https://sites.google.com/view/drive-u-7-home/smash-karts"},
-  {title:"OvO",tag:"arcade",img:"https://img.gamemonetize.com/ovo-game/512x384.jpg",emoji:"🏃",url:"https://sites.google.com/view/drive-u-7-home/ovo"},
-  {title:"Paper.io 2",tag:"io",img:"https://img.gamemonetize.com/paper-io-2/512x384.jpg",emoji:"📄",url:"https://sites.google.com/view/drive-u-7-home/paper-io-2"},
-  {title:"Snowball.io",tag:"io",img:"https://img.gamemonetize.com/snowball-io/512x384.jpg",emoji:"❄️",url:"https://sites.google.com/view/drive-u-7-home/snowball-io"},
-  {title:"Hole.io",tag:"io",img:"https://img.gamemonetize.com/holeio/512x384.jpg",emoji:"🕳️",url:"https://sites.google.com/view/drive-u-7-home/hole-io"},
-  {title:"Cluster Rush",tag:"arcade",img:"https://img.gamemonetize.com/cluster-rush/512x384.jpg",emoji:"🚛",url:"https://sites.google.com/view/drive-u-7-home/cluster-rush"},
-  {title:"Time Shooter 3: SWAT",tag:"shooting",img:"https://img.gamemonetize.com/time-shooter-3/512x384.jpg",emoji:"⏱️",url:"https://sites.google.com/view/drive-u-7-home/time-shooter-3-swat"},
-  {title:"Stumble Guys",tag:"multiplayer",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/1677740/capsule_616x353.jpg",url:"https://sites.google.com/view/drive-u-7-home/stumble-guys"},
-  {title:"Tetris",tag:"puzzle",img:"https://img.gamemonetize.com/tetris-classic/512x384.jpg",emoji:"🧩",url:"https://sites.google.com/view/drive-u-7-home/tetris"},
-  {title:"Chess",tag:"strategy",img:"https://img.gamemonetize.com/chess-online/512x384.jpg",emoji:"♟️",url:"https://sites.google.com/view/drive-u-7-home/chess"},
-  {title:"Snake",tag:"arcade",img:"https://img.gamemonetize.com/snake-classic/512x384.jpg",emoji:"🐍",url:"https://sites.google.com/view/drive-u-7-home/snake"},
-  {title:"Pac-Man",tag:"arcade",img:"https://img.gamemonetize.com/pac-man/512x384.jpg",emoji:"👾",url:"https://sites.google.com/view/drive-u-7-home/pac-man"},
-  {title:"Doodle Jump",tag:"arcade",img:"https://img.gamemonetize.com/doodle-jump/512x384.jpg",emoji:"🐸",url:"https://sites.google.com/view/drive-u-7-home/doodle-jump"},
-  {title:"Tiny Fishing",tag:"casual",img:"https://img.gamemonetize.com/tiny-fishing/512x384.jpg",emoji:"🎣",url:"https://sites.google.com/view/drive-u-7-home/tiny-fishing"},
-  {title:"Basketball Stars",tag:"sports",img:"https://img.gamemonetize.com/basketball-stars/512x384.jpg",emoji:"🏀",url:"https://sites.google.com/view/drive-u-7-home/basketball-stars"},
-  {title:"Basketball Legends",tag:"sports",img:"https://img.gamemonetize.com/basketball-legends/512x384.jpg",emoji:"🏀",url:"https://sites.google.com/view/drive-u-7-home/basketball-legends"},
-  {title:"Super Smash Flash 2",tag:"action",img:"https://img.gamemonetize.com/super-smash-flash-2/512x384.jpg",emoji:"🥊",url:"https://sites.google.com/view/drive-u-7-home/super-smash-flash-2"},
-  {title:"Turbo Arena",tag:"racing",img:"https://img.gamemonetize.com/turbo-arena/512x384.jpg",emoji:"🚗",url:"https://sites.google.com/view/drive-u-7-home/driving-games/turbo-arena"},
-  {title:"Slow Roads",tag:"driving",img:"https://slow.roads.io/img/thumbnail.jpg",emoji:"🌲",url:"https://sites.google.com/view/drive-u-7-home/driving-games/slow-roads"},
-  {title:"Granny",tag:"scary",img:"https://img.gamemonetize.com/granny-game/512x384.jpg",emoji:"👵",url:"https://sites.google.com/view/drive-u-7-home/renny"},
-  {title:"Granny 2",tag:"scary",img:"https://img.gamemonetize.com/granny-2/512x384.jpg",emoji:"👵",url:"https://sites.google.com/view/drive-u-7-home/granny-2"},
-  {title:"Granny 3",tag:"scary",img:"https://img.gamemonetize.com/granny-3/512x384.jpg",emoji:"👵",url:"https://sites.google.com/view/drive-u-7-home/new-games/granny-3"},
-  {title:"FNAF (G+)",tag:"scary",img:"https://img.gamemonetize.com/fnaf/512x384.jpg",emoji:"👻",url:"https://sites.google.com/view/drive-u-7-home/fnaf"},
-  {title:"Bad Time Simulator",tag:"action",img:"https://img.gamemonetize.com/bad-time-simulator/512x384.jpg",emoji:"💀",url:"https://sites.google.com/view/drive-u-7-home/bad-time-simulator"},
-  {title:"Mutilate a Doll 2",tag:"action",img:"https://img.gamemonetize.com/mutilate-a-doll-2/512x384.jpg",emoji:"🪆",url:"https://sites.google.com/view/drive-u-7-home/mutilate-a-doll-2"},
-  {title:"Papa's Burgeria",tag:"simulator",img:"https://img.gamemonetize.com/papas-burgeria/512x384.jpg",emoji:"🍔",url:"https://sites.google.com/view/drive-u-7-home/papas-burgeria"},
-  {title:"Papa's Pizzeria",tag:"simulator",img:"https://img.gamemonetize.com/papas-pizzeria/512x384.jpg",emoji:"🍕",url:"https://sites.google.com/view/drive-u-7-home/papas-pizzeria"},
-  {title:"Papa's Freezeria",tag:"simulator",img:"https://img.gamemonetize.com/papas-freezeria/512x384.jpg",emoji:"🍦",url:"https://sites.google.com/view/drive-u-7-home/papas-freezeria"},
-  {title:"Papa's Taco Mia!",tag:"simulator",img:"https://img.gamemonetize.com/papas-taco-mia/512x384.jpg",emoji:"🌮",url:"https://sites.google.com/view/drive-u-7-home/papas-taco-mia"},
-  {title:"Plants vs Zombies",tag:"strategy",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/3590/capsule_616x353.jpg",url:"https://sites.google.com/view/drive-u-7-home/flash-games/plants-vs-zombies"},
-  {title:"Pokemon Fire Red",tag:"adventure",img:"https://img.gamemonetize.com/pokemon-fire-red/512x384.jpg",emoji:"🔴",url:"https://sites.google.com/view/drive-u-7-home/pokemon-fire-red"},
-  {title:"Pokemon Emerald",tag:"adventure",img:"https://img.gamemonetize.com/pokemon-emerald/512x384.jpg",emoji:"💎",url:"https://sites.google.com/view/drive-u-7-home/pokemon-series/pokemon-emerald"},
-  {title:"Suika Game",tag:"puzzle",img:"https://img.gamemonetize.com/suika-game/512x384.jpg",emoji:"🍉",url:"https://sites.google.com/view/drive-u-7-home/new-games/suika-fruit"},
-  {title:"Among Us",tag:"multiplayer",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/945360/capsule_616x353.jpg",url:"https://sites.google.com/view/drive-u-7-home/among-us"},
-  {title:"UNO",tag:"multiplayer",img:"https://img.gamemonetize.com/uno-online/512x384.jpg",emoji:"🃏",url:"https://sites.google.com/view/drive-u-7-home/uno"},
-  {title:"Vex 5",tag:"escape",img:"https://img.gamemonetize.com/vex-5/512x384.jpg",emoji:"🏃",url:"https://sites.google.com/view/drive-u-7-home/vex-5"},
-  {title:"Vex 6",tag:"escape",img:"https://img.gamemonetize.com/vex-6/512x384.jpg",emoji:"🏃",url:"https://sites.google.com/view/drive-u-7-home/vex-6"},
-  {title:"Vex 7",tag:"escape",img:"https://img.gamemonetize.com/vex-7/512x384.jpg",emoji:"🏃",url:"https://sites.google.com/view/drive-u-7-home/vex-7"},
-  {title:"Idle Breakout",tag:"clicker",img:"https://img.gamemonetize.com/idle-breakout/512x384.jpg",emoji:"🧱",url:"https://sites.google.com/view/drive-u-7-home/idle-breakout"},
-  {title:"Clicker Heroes",tag:"clicker",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/363970/capsule_616x353.jpg",url:"https://sites.google.com/view/drive-u-7-home/clicker-heroes"},
-  {title:"Tanuki Sunset",tag:"drift",img:"https://img.gamemonetize.com/tanuki-sunset/512x384.jpg",emoji:"🦝",url:"https://sites.google.com/view/drive-u-7-home/tanuki-sunset"},
-  {title:"Buckshot Roulette",tag:"scary",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/2835570/capsule_616x353.jpg",url:"https://sites.google.com/view/drive-u-7-home/new-games/buckshot-roulette"},
-  {title:"Terraria",tag:"adventure",img:"https://cdn.cloudflare.steamstatic.com/steam/apps/105600/capsule_616x353.jpg",url:"https://sites.google.com/view/drive-u-7-home/new-games/terraria"},
-  {title:"Deltarune",tag:"adventure",img:"https://img.gamemonetize.com/deltarune/512x384.jpg",emoji:"🎮",url:"https://sites.google.com/view/drive-u-7-home/new-games/deltarune"},
-  {title:"Soccer Random",tag:"sports",img:"https://img.gamemonetize.com/soccer-random/512x384.jpg",emoji:"⚽",url:"https://sites.google.com/view/drive-u-7-home/soccer-random"},
-  {title:"Basket Random",tag:"sports",img:"https://img.gamemonetize.com/basket-random/512x384.jpg",emoji:"🏀",url:"https://sites.google.com/view/drive-u-7-home/basket-random"},
-  {title:"Boxing Random",tag:"sports",img:"https://img.gamemonetize.com/boxing-random/512x384.jpg",emoji:"🥊",url:"https://sites.google.com/view/drive-u-7-home/boxing-random"},
-  {title:"Rooftop Snipers",tag:"shooting",img:"https://img.gamemonetize.com/rooftop-snipers/512x384.jpg",emoji:"🏙️",url:"https://sites.google.com/view/drive-u-7-home/rooftop-snipers"},
-  {title:"Escape Road",tag:"driving",img:"https://img.gamemonetize.com/escape-road/512x384.jpg",emoji:"🚗",url:"https://sites.google.com/view/drive-u-7-home/escape-road"},
-  {title:"Death Run",tag:"escape",img:"https://img.gamemonetize.com/death-run/512x384.jpg",emoji:"💀",url:"https://sites.google.com/view/drive-u-7-home/death-run"},
-  {title:"Stick War",tag:"strategy",img:"https://img.gamemonetize.com/stick-war/512x384.jpg",emoji:"⚔️",url:"https://sites.google.com/view/drive-u-7-home/stick-war"},
-  {title:"Pixel Speedrun",tag:"escape",img:"https://img.gamemonetize.com/pixel-speedrun/512x384.jpg",emoji:"🏃",url:"https://sites.google.com/view/drive-u-7-home/pixel-speedrun"},
-  {title:"Melon Playground",tag:"simulator",img:"https://img.gamemonetize.com/melon-playground/512x384.jpg",emoji:"🍉",url:"https://sites.google.com/view/drive-u-7-home/melon-playground"},
-  {title:"8 Ball Pool",tag:"sports",img:"https://img.gamemonetize.com/8-ball-pool/512x384.jpg",emoji:"🎱",url:"https://sites.google.com/view/drive-u-7-home/8-ball-pool"},
-  {title:"JustFall.lol",tag:"multiplayer",img:"https://img.gamemonetize.com/justfall-lol/512x384.jpg",emoji:"🕳️",url:"https://sites.google.com/view/drive-u-7-home/justfall-lol"},
-  {title:"Tube Jumpers",tag:"multiplayer",img:"https://img.gamemonetize.com/tube-jumpers/512x384.jpg",emoji:"🏊",url:"https://sites.google.com/view/drive-u-7-home/tube-jumpers"},
-  {title:"Jacksmith",tag:"strategy",img:"https://img.gamemonetize.com/jacksmith/512x384.jpg",emoji:"🔨",url:"https://sites.google.com/view/drive-u-7-home/jacksmith"},
-  {title:"Pixel Gun",tag:"shooting",img:"https://img.gamemonetize.com/pixel-gun/512x384.jpg",emoji:"🔫",url:"https://sites.google.com/view/drive-u-7-home/pixel-gun"},
-  {title:"Free Rider 3",tag:"bike",img:"https://img.gamemonetize.com/free-rider-3/512x384.jpg",emoji:"🚲",url:"https://sites.google.com/view/drive-u-7-home/free-rider-3"},
-  {title:"Gacha Life",tag:"casual",img:"https://img.gamemonetize.com/gacha-life/512x384.jpg",emoji:"✨",url:"https://sites.google.com/view/drive-u-7-home/gacha-life"},
-  {title:"Gacha Club",tag:"casual",img:"https://img.gamemonetize.com/gacha-club/512x384.jpg",emoji:"✨",url:"https://sites.google.com/view/drive-u-7-home/gacha-club"},
+  {title:"Slither.io",tag:"io",emoji:"🐍",url:"https://sites.google.com/view/drive-u-7-home/new-games/slither-io"},
+  {title:"Elastic Man",tag:"arcade",emoji:"😮",url:"https://sites.google.com/view/drive-u-7-home/new-games/elastic-man"},
+  {title:"Run 3",tag:"arcade",emoji:"🏃",url:"https://sites.google.com/view/drive-u-7-home/run-3"},
+  {title:"1v1.LOL",tag:"shooting",emoji:"🎯",url:"https://sites.google.com/view/drive-u-7-home/lol-v-11"},
+  {title:"Snow Rider",tag:"racing",emoji:"🛷",url:"https://sites.google.com/view/drive-u-7-home/snow-rider"},
+  {title:"Cookie Clicker",tag:"clicker",emoji:"🍪",url:"https://sites.google.com/view/drive-u-7-home/cookie-clicker"},
+  {title:"Fireboy and Watergirl",tag:"puzzle",emoji:"🔥",url:"https://sites.google.com/view/drive-u-7-home/fireboy-and-watergirl"},
+  {title:"Fireboy and Watergirl 2",tag:"puzzle",emoji:"💧",url:"https://sites.google.com/view/drive-u-7-home/fireboy-and-watergirl-2"},
+  {title:"Fireboy And Watergirl 3",tag:"puzzle",emoji:"🌿",url:"https://sites.google.com/view/drive-u-7-home/fireboy-and-watergirl-3"},
+  {title:"Happy Wheels",tag:"arcade",emoji:"😂",url:"https://sites.google.com/view/drive-u-7-home/flash-games/happy-wheels"},
+  {title:"Bloons Tower Defense 5",tag:"strategy",emoji:"🎈",url:"https://sites.google.com/view/drive-u-7-home/flash-games/bloons-tower-defense-5"},
+  {title:"Bloons TD 6",tag:"strategy",emoji:"🎈",url:"https://sites.google.com/view/drive-u-7-home/bloons-td-6"},
+  {title:"Getaway Shootout",tag:"multiplayer",emoji:"🔫",url:"https://sites.google.com/view/drive-u-7-home/getaway-shootout"},
+  {title:"House Of Hazards",tag:"multiplayer",emoji:"🏠",url:"https://sites.google.com/view/drive-u-7-home/house-of-hazards"},
+  {title:"Smash Karts",tag:"racing",emoji:"🏎️",url:"https://sites.google.com/view/drive-u-7-home/smash-karts"},
+  {title:"OvO",tag:"arcade",emoji:"🏃",url:"https://sites.google.com/view/drive-u-7-home/ovo"},
+  {title:"Paper.io 2",tag:"io",emoji:"📄",url:"https://sites.google.com/view/drive-u-7-home/paper-io-2"},
+  {title:"Snowball.io",tag:"io",emoji:"❄️",url:"https://sites.google.com/view/drive-u-7-home/snowball-io"},
+  {title:"Hole.io",tag:"io",emoji:"🕳️",url:"https://sites.google.com/view/drive-u-7-home/hole-io"},
+  {title:"Cluster Rush",tag:"arcade",emoji:"🚛",url:"https://sites.google.com/view/drive-u-7-home/cluster-rush"},
+  {title:"Time Shooter 3: SWAT",tag:"shooting",emoji:"⏱️",url:"https://sites.google.com/view/drive-u-7-home/time-shooter-3-swat"},
+  {title:"Stumble Guys",tag:"multiplayer",emoji:"🤸",url:"https://sites.google.com/view/drive-u-7-home/stumble-guys"},
+  {title:"Tetris",tag:"puzzle",emoji:"🧩",url:"https://sites.google.com/view/drive-u-7-home/tetris"},
+  {title:"Chess",tag:"strategy",emoji:"♟️",url:"https://sites.google.com/view/drive-u-7-home/chess"},
+  {title:"Snake",tag:"arcade",emoji:"🐍",url:"https://sites.google.com/view/drive-u-7-home/snake"},
+  {title:"Pac-Man",tag:"arcade",emoji:"👾",url:"https://sites.google.com/view/drive-u-7-home/pac-man"},
+  {title:"Doodle Jump",tag:"arcade",emoji:"🐸",url:"https://sites.google.com/view/drive-u-7-home/doodle-jump"},
+  {title:"Tiny Fishing",tag:"casual",emoji:"🎣",url:"https://sites.google.com/view/drive-u-7-home/tiny-fishing"},
+  {title:"Basketball Legends",tag:"sports",emoji:"🏀",url:"https://sites.google.com/view/drive-u-7-home/basketball-legends"},
+  {title:"Super Smash Flash 2",tag:"action",emoji:"🥊",url:"https://sites.google.com/view/drive-u-7-home/super-smash-flash-2"},
+  {title:"Turbo Arena",tag:"racing",emoji:"🚗",url:"https://sites.google.com/view/drive-u-7-home/driving-games/turbo-arena"},
+  {title:"Slow Roads",tag:"driving",emoji:"🌲",url:"https://sites.google.com/view/drive-u-7-home/driving-games/slow-roads"},
+  {title:"Granny",tag:"scary",emoji:"👵",url:"https://sites.google.com/view/drive-u-7-home/renny"},
+  {title:"Granny 2",tag:"scary",emoji:"👵",url:"https://sites.google.com/view/drive-u-7-home/granny-2"},
+  {title:"Granny 3",tag:"scary",emoji:"👵",url:"https://sites.google.com/view/drive-u-7-home/new-games/granny-3"},
+  {title:"FNAF (G+)",tag:"scary",emoji:"👻",url:"https://sites.google.com/view/drive-u-7-home/fnaf"},
+  {title:"Bad Time Simulator",tag:"action",emoji:"💀",url:"https://sites.google.com/view/drive-u-7-home/bad-time-simulator"},
+  {title:"Mutilate a Doll 2",tag:"action",emoji:"🪆",url:"https://sites.google.com/view/drive-u-7-home/mutilate-a-doll-2"},
+  {title:"Papa's Burgeria",tag:"simulator",emoji:"🍔",url:"https://sites.google.com/view/drive-u-7-home/papas-burgeria"},
+  {title:"Papa's Pizzeria",tag:"simulator",emoji:"🍕",url:"https://sites.google.com/view/drive-u-7-home/papas-pizzeria"},
+  {title:"Papa's Freezeria",tag:"simulator",emoji:"🍦",url:"https://sites.google.com/view/drive-u-7-home/papas-freezeria"},
+  {title:"Papa's Taco Mia!",tag:"simulator",emoji:"🌮",url:"https://sites.google.com/view/drive-u-7-home/papas-taco-mia"},
+  {title:"Plants vs Zombies",tag:"strategy",emoji:"🧟",url:"https://sites.google.com/view/drive-u-7-home/flash-games/plants-vs-zombies"},
+  {title:"Pokemon Fire Red",tag:"adventure",emoji:"🔴",url:"https://sites.google.com/view/drive-u-7-home/pokemon-fire-red"},
+  {title:"Pokemon Emerald",tag:"adventure",emoji:"💎",url:"https://sites.google.com/view/drive-u-7-home/pokemon-series/pokemon-emerald"},
+  {title:"Suika Game",tag:"puzzle",emoji:"🍉",url:"https://sites.google.com/view/drive-u-7-home/new-games/suika-fruit"},
+  {title:"Among Us",tag:"multiplayer",emoji:"👨‍🚀",url:"https://sites.google.com/view/drive-u-7-home/among-us"},
+  {title:"UNO",tag:"multiplayer",emoji:"🃏",url:"https://sites.google.com/view/drive-u-7-home/uno"},
+  {title:"Vex 5",tag:"escape",emoji:"🏃",url:"https://sites.google.com/view/drive-u-7-home/vex-5"},
+  {title:"Vex 6",tag:"escape",emoji:"🏃",url:"https://sites.google.com/view/drive-u-7-home/vex-6"},
+  {title:"Vex 7",tag:"escape",emoji:"🏃",url:"https://sites.google.com/view/drive-u-7-home/vex-7"},
+  {title:"Clicker Heroes",tag:"clicker",emoji:"⚔️",url:"https://sites.google.com/view/drive-u-7-home/clicker-heroes"},
+  {title:"Tanuki Sunset",tag:"drift",emoji:"🦝",url:"https://sites.google.com/view/drive-u-7-home/tanuki-sunset"},
+  {title:"Buckshot Roulette",tag:"scary",emoji:"🎰",url:"https://sites.google.com/view/drive-u-7-home/new-games/buckshot-roulette"},
+  {title:"Terraria",tag:"adventure",emoji:"⛏️",url:"https://sites.google.com/view/drive-u-7-home/new-games/terraria"},
+  {title:"Deltarune",tag:"adventure",emoji:"🎮",url:"https://sites.google.com/view/drive-u-7-home/new-games/deltarune"},
+  {title:"Soccer Random",tag:"sports",emoji:"⚽",url:"https://sites.google.com/view/drive-u-7-home/soccer-random"},
+  {title:"Basket Random",tag:"sports",emoji:"🏀",url:"https://sites.google.com/view/drive-u-7-home/basket-random"},
+  {title:"Boxing Random",tag:"sports",emoji:"🥊",url:"https://sites.google.com/view/drive-u-7-home/boxing-random"},
+  {title:"Rooftop Snipers",tag:"shooting",emoji:"🏙️",url:"https://sites.google.com/view/drive-u-7-home/rooftop-snipers"},
+  {title:"Escape Road",tag:"driving",emoji:"🚗",url:"https://sites.google.com/view/drive-u-7-home/escape-road"},
+  {title:"Death Run",tag:"escape",emoji:"💀",url:"https://sites.google.com/view/drive-u-7-home/death-run"},
+  {title:"Stick War",tag:"strategy",emoji:"⚔️",url:"https://sites.google.com/view/drive-u-7-home/stick-war"},
+  {title:"Pixel Speedrun",tag:"escape",emoji:"🏃",url:"https://sites.google.com/view/drive-u-7-home/pixel-speedrun"},
+  {title:"Melon Playground",tag:"simulator",emoji:"🍉",url:"https://sites.google.com/view/drive-u-7-home/melon-playground"},
+  {title:"8 Ball Pool",tag:"sports",emoji:"🎱",url:"https://sites.google.com/view/drive-u-7-home/8-ball-pool"},
+  {title:"JustFall.lol",tag:"multiplayer",emoji:"🕳️",url:"https://sites.google.com/view/drive-u-7-home/justfall-lol"},
+  {title:"Tube Jumpers",tag:"multiplayer",emoji:"🏊",url:"https://sites.google.com/view/drive-u-7-home/tube-jumpers"},
+  {title:"Jacksmith",tag:"strategy",emoji:"🔨",url:"https://sites.google.com/view/drive-u-7-home/jacksmith"},
+  {title:"Pixel Gun",tag:"shooting",emoji:"🔫",url:"https://sites.google.com/view/drive-u-7-home/pixel-gun"},
+  {title:"Free Rider 3",tag:"bike",emoji:"🚲",url:"https://sites.google.com/view/drive-u-7-home/free-rider-3"},
+  {title:"Gacha Life",tag:"casual",emoji:"✨",url:"https://sites.google.com/view/drive-u-7-home/gacha-life"},
+  {title:"Gacha Club",tag:"casual",emoji:"✨",url:"https://sites.google.com/view/drive-u-7-home/gacha-club"},
 ];
 
-/* Featured picks with direct image URLs so thumbnails always load */
+/* Featured picks */
 const featuredGames = [
   {title:"Drift Hunters 2024",tag:"drift",emoji:"🚗",url:"drift-hunters-2024.html",thumb:"https://unblocked-games.s3.amazonaws.com/media/posts/444/drift-hunters-2024-freezenova.jpg"},
   {title:"Crazy Cattle 3D",tag:"action",emoji:"🐄",url:"crazy-cattle-3d.html",thumb:"https://unblocked-games.s3.amazonaws.com/media/posts/687/crazy-cattle-3d-unblocked.webp"},
@@ -384,16 +383,14 @@ function renderFeatured() {
   const fg = document.getElementById("featGrid");
   fg.innerHTML = featuredGames.map(g => `
     <div class="feat-card" onclick="openGameByTitle('${g.title.replace(/'/g,"\\'")}')">
-      <div class="feat-card-img-wrap" style="position:relative">
+      <div class="card-image-container" style="height:120px">
         <img
           class="thumb"
           src="${g.thumb}"
           alt="${g.title}"
           loading="lazy"
-          style="width:100%;height:120px;object-fit:cover;display:block;background:#111"
-          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+          onerror="this.style.display='none';this.parentElement.textContent='${g.emoji}'"
         >
-        <div class="thumb-fallback" style="display:none">${g.emoji}</div>
         <div class="feat-badge">⭐ Featured</div>
       </div>
       <div class="cinfo">
@@ -417,7 +414,6 @@ function setCategory(el, cat) {
   activeCat = cat;
   const label = cat === "all" ? "All Games" : cat.charAt(0).toUpperCase()+cat.slice(1)+" Games";
   document.getElementById("secLabel").textContent = label;
-  /* Hide featured when filtering */
   document.getElementById("featSection").style.display = (cat === "all" && !document.getElementById("q").value) ? "block" : "none";
   applyFilters();
 }
@@ -427,7 +423,6 @@ function applyFilters() {
   let list = games;
   if (activeCat !== "all") list = list.filter(g => g.tag === activeCat);
   if (q) list = list.filter(g => g.title.toLowerCase().includes(q) || g.tag.includes(q));
-  /* Hide featured during search */
   document.getElementById("featSection").style.display = (activeCat === "all" && !q) ? "block" : "none";
   activeList = list;
   document.getElementById("gameCount").textContent = list.length + " game" + (list.length !== 1 ? "s" : "");
@@ -440,22 +435,37 @@ function render(list) {
     grid.innerHTML = '<div class="no-res"><div class="no-res-icon">🔍</div>No games found. Try a different search!</div>';
     return;
   }
-  grid.innerHTML = list.map((g,i) => `
-    <div class="card" onclick="openGame(${i})">
-      ${g.img
-        ? `<img class="thumb" src="${g.img.startsWith('http') ? g.img : BASE+g.img}" alt="${g.title}" loading="lazy" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div style=\'width:100%;height:100px;background:linear-gradient(135deg,#1a1a38,#251f44);display:flex;align-items:center;justify-content:center;font-size:36px\'>${g.emoji||'🎮'}</div>')">`
-        : `<div style="width:100%;height:100px;background:linear-gradient(135deg,#1a1a38,#251f44);display:flex;align-items:center;justify-content:center;font-size:36px">${g.emoji||'🎮'}</div>`
-      }
-      <div class="play-overlay">
-        <div class="play-icon">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+  grid.innerHTML = list.map((g,i) => {
+    const hasImg = g.img && (g.img.startsWith('http') || g.img.includes('/'));
+    const imgSrc = hasImg && g.img.startsWith('http') ? g.img : (hasImg ? BASE + g.img : null);
+    const emoji = g.emoji || '🎮';
+    
+    return `
+      <div class="card" onclick="openGame(${i})">
+        <div class="card-image-container">
+          ${imgSrc ? `<img class="thumb" src="${imgSrc}" alt="${g.title}" loading="lazy" onerror="this.style.display='none';this.parentElement.dataset.failed='true'">` : ''}
+          <span class="emoji-fallback" style="display:${imgSrc ? 'none' : 'block'};font-size:36px">${emoji}</span>
+          <div class="play-overlay">
+            <div class="play-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="cinfo">
-        <div class="ctitle">${g.title}</div>
-        <div class="ctag">${g.tag}</div>
-      </div>
-    </div>`).join("");
+        <div class="cinfo">
+          <div class="ctitle">${g.title}</div>
+          <div class="ctag">${g.tag}</div>
+        </div>
+      </div>`;
+  }).join("");
+  
+  // Add fallback for failed images
+  document.querySelectorAll('.card-image-container img').forEach(img => {
+    img.addEventListener('error', function() {
+      this.style.display = 'none';
+      const fallback = this.parentElement.querySelector('.emoji-fallback');
+      if (fallback) fallback.style.display = 'block';
+    });
+  });
 }
 
 function openGame(i) {

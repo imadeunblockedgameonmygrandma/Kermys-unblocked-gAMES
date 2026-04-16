@@ -177,6 +177,8 @@ body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff;min-height:
     <div class="cat" onclick="setCategory(this,'simulator')">🖥️ Simulator</div>
     <div class="cat" onclick="setCategory(this,'sports')">⚽ Sports</div>
     <div class="cat" onclick="setCategory(this,'strategy')">🧠 Strategy</div>
+    <div class="cat" onclick="setCategory(this,'board')">🎲 Board</div>
+    <div class="cat" onclick="setCategory(this,'card')">🃏 Card</div>
   </div>
 </div>
 
@@ -283,6 +285,42 @@ const games = [
   {title:"GTA Simulator",tag:"simulator",img:"media/posts/365/gta-simulator.jpg",url:"gta-simulator.html"},
   {title:"Crazy Shooters 2",tag:"shooting",img:"media/posts/90/512-4.jpg",url:"crazy-shooters-2.html"},
   {title:"Love Tester",tag:"casual",img:"media/posts/152/test.jpg",url:"love-tester.html"},
+
+  // --- Playhop Games ---
+  {title:"Backgammon",tag:"board",emoji:"🎲",fullThumb:"https://static.playhop.com/images/449ff_1892995_18cd2/45acc8893/2a0000016990c48a_42b30c2/93cb2c4121490ad72f76_5eefc6/pjpg128x128",fullUrl:"https://playhop.com/app/96250"},
+  {title:"Roll This Ball",tag:"puzzle",emoji:"🔵",fullThumb:"https://static.playhop.com/images/443ae_3006389_a938c/0195e06f1/2a00000180f58be1_e1955e2/5525d657d53e8f0d6c24_a53aa2/pjpg128x128",fullUrl:"https://playhop.com/app/96256"},
+  {title:"Gear Madness",tag:"arcade",emoji:"⚙️",fullThumb:"https://static.playhop.com/images/ef9de_3006389_1a03d/3f6970c89/2a0000017af81ca6_80a6f78/782d144a179dc952f624_c5da60/pjpg128x128",fullUrl:"https://playhop.com/app/96289"},
+  {title:"Master Chess",tag:"board",emoji:"♟️",fullThumb:"https://static.playhop.com/images/d5b5e_1892995_801de/294b37cf7/2a00000187989d78_9b059ac/7be0f469345bab7b24fd_0d065e/pjpg128x128",fullUrl:"https://playhop.com/app/96300"},
+  {title:"Battleship War Multiplayer",tag:"multiplayer",emoji:"🚢",fullThumb:"https://static.playhop.com/images/f8305_1881364_3dcff/90a2aa0ac/2a0000018af5d272_63c12c3/99b9dadb80d6e12400bd_5333e3/pjpg128x128",fullUrl:"https://playhop.com/app/96356"},
+  {title:"Monster Go",tag:"arcade",emoji:"👾",fullThumb:"https://static.playhop.com/images/8c5ad_1881371_9dac5/c630eaf1d/2a0000016990c508_0720bce/b2e32675608be70ca640_e2618b/pjpg128x128",fullUrl:"https://playhop.com/app/96365"},
+  {title:"Frogtastic",tag:"arcade",emoji:"🐸",fullThumb:"https://static.playhop.com/images/e7248_11374519_f60d4/bfdb98480/2a0000018bec72d7_7188eb0/8700133e505db1b15ea0_197293/pjpg128x128",fullUrl:"https://playhop.com/app/96429"},
+  {title:"Klondike Solitaire",tag:"card",emoji:"🃏",fullThumb:"https://static.playhop.com/images/40617_3006389_21b34/9dc8a9d29/2a0000018414f551_904f728/d52ae4ab79432f4948ff_ff5b27/pjpg128x128",fullUrl:"https://playhop.com/app/96431"},
+  {title:"Darts Pro Multiplayer",tag:"sports",emoji:"🎯",fullThumb:"https://static.playhop.com/images/21c6a_2977039_1c0fa/fd253dad6/2a000001898d3078_f73b9c0/e44d21ba13879e1c5487_1d602c/pjpg128x128",fullUrl:"https://playhop.com/app/96432"},
+  {title:"Hockey Shootout",tag:"sports",emoji:"🏒",fullThumb:"https://static.playhop.com/images/c8416_1892995_56949/09478a897/2a000001841a45d2_5a56caa/925edd8da6745138879a_4a5b72/pjpg128x128",fullUrl:"https://playhop.com/app/96435"},
+  {title:"Gummy Blocks",tag:"puzzle",emoji:"🟩",fullThumb:"https://static.playhop.com/images/4f11e_1890793_3d646/a5fbc7aa9/2a000001869372c1_da444f8/13f268b03554be5034e0_fee547/pjpg128x128",fullUrl:"https://playhop.com/app/96441"},
+  {title:"Scorpion Solitaire",tag:"card",emoji:"🦂",fullThumb:"https://static.playhop.com/images/e2cdd_18762293_bc348/b6483a3f5/2a0000019be4eca1_b2abeff/41c11aff6a6716e313a2_46c43d/pjpg128x128",fullUrl:"https://playhop.com/app/96444"},
+  {title:"Spider Solitaire",tag:"card",emoji:"🕷️",fullThumb:"https://static.playhop.com/images/a13cc_2977039_d0a5f/e03eafab7/2a0000018f38ce89_74a012c/8fb3706ec2997133f7f2_6735a8/pjpg128x128",fullUrl:"https://playhop.com/app/96447"},
+  {title:"Domino Block",tag:"board",emoji:"🀱",fullThumb:"https://static.playhop.com/images/99eb0_1892995_8744f/8e0374956/2a000001898da275_ba55ce5/46e6734bb70c0e2d7042_902027/pjpg128x128",fullUrl:"https://playhop.com/app/96456"},
+  {title:"1212!",tag:"puzzle",emoji:"🔢",fullThumb:"https://static.playhop.com/images/a4af4_1881364_ec72c/5e0795347/2a00000193f2f6f4_6d6bad9/7e6343ea6d5ed642cbb4_c6a3ce/pjpg128x128",fullUrl:"https://playhop.com/app/96458"},
+  {title:"Pyramid Solitaire",tag:"card",emoji:"🔺",fullThumb:"https://static.playhop.com/images/1016f_2977039_70b0c/1a6f52ae8/2a0000018992bb92_6d9eca3/d627b49c84b5df9e26d2_305069/pjpg128x128",fullUrl:"https://playhop.com/app/96465"},
+  {title:"Mahjong Mania",tag:"board",emoji:"🀄",fullThumb:"https://static.playhop.com/images/cd97a_1890793_35517/887ff7278/2a0000016990c57f_3ce3bfc/ab04b57e601000711b5a_b6521d/pjpg128x128",fullUrl:"https://playhop.com/app/96479"},
+  {title:"Backgammon Multiplayer",tag:"multiplayer",emoji:"🎲",fullThumb:"https://static.playhop.com/images/f0a64_1892995_342b3/c5471485f/2a000001982d67cb_178eb3a/509e7087857ac8889132_73d",fullUrl:"https://playhop.com/app/96481"},
+  {title:"Granny Original",tag:"scary",emoji:"👵",fullThumb:"https://static.playhop.com/images/granny/pjpg128x128",fullUrl:"https://playhop.com/app/107580"},
+  {title:"Five Nights at Freddy's 2",tag:"scary",emoji:"🐻",fullThumb:"https://static.playhop.com/images/fnaf2/pjpg128x128",fullUrl:"https://playhop.com/app/107234"},
+  {title:"Five Nights at Freddy's 4",tag:"scary",emoji:"🐻",fullThumb:"https://static.playhop.com/images/fnaf4/pjpg128x128",fullUrl:"https://playhop.com/app/107236"},
+  {title:"Geometry Dash Wave",tag:"arcade",emoji:"〰️",fullThumb:"https://static.playhop.com/images/geodash/pjpg128x128",fullUrl:"https://playhop.com/app/107112"},
+  {title:"Klondike: The Lost Expedition",tag:"adventure",emoji:"🏔️",fullThumb:"https://static.playhop.com/images/klondike/pjpg128x128",fullUrl:"https://playhop.com/app/96508"},
+  {title:"Same Game",tag:"puzzle",emoji:"🔵",fullThumb:"https://static.playhop.com/images/samegame/pjpg128x128",fullUrl:"https://playhop.com/app/96510"},
+  {title:"Airport Clash 3D",tag:"action",emoji:"✈️",fullThumb:"https://static.playhop.com/images/airportclash/pjpg128x128",fullUrl:"https://playhop.com/app/96512"},
+  {title:"Army Combat",tag:"action",emoji:"🪖",fullThumb:"https://static.playhop.com/images/armycombat/pjpg128x128",fullUrl:"https://playhop.com/app/96514"},
+  {title:"Mahjong Master 2",tag:"board",emoji:"🀄",fullThumb:"https://static.playhop.com/images/mahjong2/pjpg128x128",fullUrl:"https://playhop.com/app/96516"},
+  {title:"Solitaire Grande",tag:"card",emoji:"🃏",fullThumb:"https://static.playhop.com/images/solitairegrande/pjpg128x128",fullUrl:"https://playhop.com/app/96518"},
+  {title:"Connect Merge",tag:"puzzle",emoji:"🔗",fullThumb:"https://static.playhop.com/images/connectmerge/pjpg128x128",fullUrl:"https://playhop.com/app/96520"},
+  {title:"Sea of Words",tag:"puzzle",emoji:"🌊",fullThumb:"https://static.playhop.com/images/seaofwords/pjpg128x128",fullUrl:"https://playhop.com/app/96522"},
+  {title:"Foot Doctor",tag:"casual",emoji:"🦶",fullThumb:"https://static.playhop.com/images/footdoctor/pjpg128x128",fullUrl:"https://playhop.com/app/96524"},
+  {title:"Buy a Brainrot 3D",tag:"clicker",emoji:"🧠",fullThumb:"https://static.playhop.com/images/brainrot3d/pjpg128x128",fullUrl:"https://playhop.com/app/108001"},
+  {title:"Hoby Tales",tag:"puzzle",emoji:"🧩",fullThumb:"https://static.playhop.com/images/hobytales/pjpg128x128",fullUrl:"https://playhop.com/app/107890"},
+  {title:"Knights & Brides",tag:"strategy",emoji:"⚔️",fullThumb:"https://static.playhop.com/images/knightsbrides/pjpg128x128",fullUrl:"https://playhop.com/app/96600"},
 ];
 
 /* Featured picks with direct image URLs so thumbnails always load */
@@ -364,7 +402,7 @@ function render(list) {
   }
   grid.innerHTML = list.map((g,i) => `
     <div class="card" onclick="openGame(${i})">
-      <img class="thumb" src="${BASE}${g.img}" alt="${g.title}" loading="lazy" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div style=\'width:100%;height:100px;background:#1a1a38;display:flex;align-items:center;justify-content:center;font-size:28px\'>${g.emoji||'🎮'}</div>')">
+      <img class="thumb" src="${g.fullThumb || (BASE+g.img)}" alt="${g.title}" loading="lazy" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div style=\'width:100%;height:100px;background:#1a1a38;display:flex;align-items:center;justify-content:center;font-size:28px\'>${g.emoji||'🎮'}</div>')">
       <div class="play-overlay">
         <div class="play-icon">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
@@ -390,7 +428,7 @@ function openGameByTitle(title) {
 function _launch(g) {
   document.getElementById("pTitle").textContent = g.title;
   document.getElementById("pTag").textContent = g.tag.toUpperCase();
-  document.getElementById("pFrame").src = BASE + g.url;
+  document.getElementById("pFrame").src = g.fullUrl || (BASE + g.url);
   document.getElementById("player").classList.add("open");
   document.body.style.overflow = "hidden";
 }

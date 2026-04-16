@@ -177,8 +177,7 @@ body{font-family:'Segoe UI',sans-serif;background:#0d0d1a;color:#fff;min-height:
     <div class="cat" onclick="setCategory(this,'simulator')">🖥️ Simulator</div>
     <div class="cat" onclick="setCategory(this,'sports')">⚽ Sports</div>
     <div class="cat" onclick="setCategory(this,'strategy')">🧠 Strategy</div>
-    <div class="cat" onclick="setCategory(this,'board')">🎲 Board</div>
-    <div class="cat" onclick="setCategory(this,'card')">🃏 Card</div>
+    <div class="cat" onclick="filterCrazyGames(this)">🎲 CrazyGames</div>
   </div>
 </div>
 
@@ -285,42 +284,262 @@ const games = [
   {title:"GTA Simulator",tag:"simulator",img:"media/posts/365/gta-simulator.jpg",url:"gta-simulator.html"},
   {title:"Crazy Shooters 2",tag:"shooting",img:"media/posts/90/512-4.jpg",url:"crazy-shooters-2.html"},
   {title:"Love Tester",tag:"casual",img:"media/posts/152/test.jpg",url:"love-tester.html"},
-
-  // --- Playhop Games ---
-  {title:"Backgammon",tag:"board",emoji:"🎲",fullThumb:"https://static.playhop.com/images/449ff_1892995_18cd2/45acc8893/2a0000016990c48a_42b30c2/93cb2c4121490ad72f76_5eefc6/pjpg128x128",fullUrl:"https://playhop.com/app/96250"},
-  {title:"Roll This Ball",tag:"puzzle",emoji:"🔵",fullThumb:"https://static.playhop.com/images/443ae_3006389_a938c/0195e06f1/2a00000180f58be1_e1955e2/5525d657d53e8f0d6c24_a53aa2/pjpg128x128",fullUrl:"https://playhop.com/app/96256"},
-  {title:"Gear Madness",tag:"arcade",emoji:"⚙️",fullThumb:"https://static.playhop.com/images/ef9de_3006389_1a03d/3f6970c89/2a0000017af81ca6_80a6f78/782d144a179dc952f624_c5da60/pjpg128x128",fullUrl:"https://playhop.com/app/96289"},
-  {title:"Master Chess",tag:"board",emoji:"♟️",fullThumb:"https://static.playhop.com/images/d5b5e_1892995_801de/294b37cf7/2a00000187989d78_9b059ac/7be0f469345bab7b24fd_0d065e/pjpg128x128",fullUrl:"https://playhop.com/app/96300"},
-  {title:"Battleship War Multiplayer",tag:"multiplayer",emoji:"🚢",fullThumb:"https://static.playhop.com/images/f8305_1881364_3dcff/90a2aa0ac/2a0000018af5d272_63c12c3/99b9dadb80d6e12400bd_5333e3/pjpg128x128",fullUrl:"https://playhop.com/app/96356"},
-  {title:"Monster Go",tag:"arcade",emoji:"👾",fullThumb:"https://static.playhop.com/images/8c5ad_1881371_9dac5/c630eaf1d/2a0000016990c508_0720bce/b2e32675608be70ca640_e2618b/pjpg128x128",fullUrl:"https://playhop.com/app/96365"},
-  {title:"Frogtastic",tag:"arcade",emoji:"🐸",fullThumb:"https://static.playhop.com/images/e7248_11374519_f60d4/bfdb98480/2a0000018bec72d7_7188eb0/8700133e505db1b15ea0_197293/pjpg128x128",fullUrl:"https://playhop.com/app/96429"},
-  {title:"Klondike Solitaire",tag:"card",emoji:"🃏",fullThumb:"https://static.playhop.com/images/40617_3006389_21b34/9dc8a9d29/2a0000018414f551_904f728/d52ae4ab79432f4948ff_ff5b27/pjpg128x128",fullUrl:"https://playhop.com/app/96431"},
-  {title:"Darts Pro Multiplayer",tag:"sports",emoji:"🎯",fullThumb:"https://static.playhop.com/images/21c6a_2977039_1c0fa/fd253dad6/2a000001898d3078_f73b9c0/e44d21ba13879e1c5487_1d602c/pjpg128x128",fullUrl:"https://playhop.com/app/96432"},
-  {title:"Hockey Shootout",tag:"sports",emoji:"🏒",fullThumb:"https://static.playhop.com/images/c8416_1892995_56949/09478a897/2a000001841a45d2_5a56caa/925edd8da6745138879a_4a5b72/pjpg128x128",fullUrl:"https://playhop.com/app/96435"},
-  {title:"Gummy Blocks",tag:"puzzle",emoji:"🟩",fullThumb:"https://static.playhop.com/images/4f11e_1890793_3d646/a5fbc7aa9/2a000001869372c1_da444f8/13f268b03554be5034e0_fee547/pjpg128x128",fullUrl:"https://playhop.com/app/96441"},
-  {title:"Scorpion Solitaire",tag:"card",emoji:"🦂",fullThumb:"https://static.playhop.com/images/e2cdd_18762293_bc348/b6483a3f5/2a0000019be4eca1_b2abeff/41c11aff6a6716e313a2_46c43d/pjpg128x128",fullUrl:"https://playhop.com/app/96444"},
-  {title:"Spider Solitaire",tag:"card",emoji:"🕷️",fullThumb:"https://static.playhop.com/images/a13cc_2977039_d0a5f/e03eafab7/2a0000018f38ce89_74a012c/8fb3706ec2997133f7f2_6735a8/pjpg128x128",fullUrl:"https://playhop.com/app/96447"},
-  {title:"Domino Block",tag:"board",emoji:"🀱",fullThumb:"https://static.playhop.com/images/99eb0_1892995_8744f/8e0374956/2a000001898da275_ba55ce5/46e6734bb70c0e2d7042_902027/pjpg128x128",fullUrl:"https://playhop.com/app/96456"},
-  {title:"1212!",tag:"puzzle",emoji:"🔢",fullThumb:"https://static.playhop.com/images/a4af4_1881364_ec72c/5e0795347/2a00000193f2f6f4_6d6bad9/7e6343ea6d5ed642cbb4_c6a3ce/pjpg128x128",fullUrl:"https://playhop.com/app/96458"},
-  {title:"Pyramid Solitaire",tag:"card",emoji:"🔺",fullThumb:"https://static.playhop.com/images/1016f_2977039_70b0c/1a6f52ae8/2a0000018992bb92_6d9eca3/d627b49c84b5df9e26d2_305069/pjpg128x128",fullUrl:"https://playhop.com/app/96465"},
-  {title:"Mahjong Mania",tag:"board",emoji:"🀄",fullThumb:"https://static.playhop.com/images/cd97a_1890793_35517/887ff7278/2a0000016990c57f_3ce3bfc/ab04b57e601000711b5a_b6521d/pjpg128x128",fullUrl:"https://playhop.com/app/96479"},
-  {title:"Backgammon Multiplayer",tag:"multiplayer",emoji:"🎲",fullThumb:"https://static.playhop.com/images/f0a64_1892995_342b3/c5471485f/2a000001982d67cb_178eb3a/509e7087857ac8889132_73d",fullUrl:"https://playhop.com/app/96481"},
-  {title:"Granny Original",tag:"scary",emoji:"👵",fullThumb:"https://static.playhop.com/images/granny/pjpg128x128",fullUrl:"https://playhop.com/app/107580"},
-  {title:"Five Nights at Freddy's 2",tag:"scary",emoji:"🐻",fullThumb:"https://static.playhop.com/images/fnaf2/pjpg128x128",fullUrl:"https://playhop.com/app/107234"},
-  {title:"Five Nights at Freddy's 4",tag:"scary",emoji:"🐻",fullThumb:"https://static.playhop.com/images/fnaf4/pjpg128x128",fullUrl:"https://playhop.com/app/107236"},
-  {title:"Geometry Dash Wave",tag:"arcade",emoji:"〰️",fullThumb:"https://static.playhop.com/images/geodash/pjpg128x128",fullUrl:"https://playhop.com/app/107112"},
-  {title:"Klondike: The Lost Expedition",tag:"adventure",emoji:"🏔️",fullThumb:"https://static.playhop.com/images/klondike/pjpg128x128",fullUrl:"https://playhop.com/app/96508"},
-  {title:"Same Game",tag:"puzzle",emoji:"🔵",fullThumb:"https://static.playhop.com/images/samegame/pjpg128x128",fullUrl:"https://playhop.com/app/96510"},
-  {title:"Airport Clash 3D",tag:"action",emoji:"✈️",fullThumb:"https://static.playhop.com/images/airportclash/pjpg128x128",fullUrl:"https://playhop.com/app/96512"},
-  {title:"Army Combat",tag:"action",emoji:"🪖",fullThumb:"https://static.playhop.com/images/armycombat/pjpg128x128",fullUrl:"https://playhop.com/app/96514"},
-  {title:"Mahjong Master 2",tag:"board",emoji:"🀄",fullThumb:"https://static.playhop.com/images/mahjong2/pjpg128x128",fullUrl:"https://playhop.com/app/96516"},
-  {title:"Solitaire Grande",tag:"card",emoji:"🃏",fullThumb:"https://static.playhop.com/images/solitairegrande/pjpg128x128",fullUrl:"https://playhop.com/app/96518"},
-  {title:"Connect Merge",tag:"puzzle",emoji:"🔗",fullThumb:"https://static.playhop.com/images/connectmerge/pjpg128x128",fullUrl:"https://playhop.com/app/96520"},
-  {title:"Sea of Words",tag:"puzzle",emoji:"🌊",fullThumb:"https://static.playhop.com/images/seaofwords/pjpg128x128",fullUrl:"https://playhop.com/app/96522"},
-  {title:"Foot Doctor",tag:"casual",emoji:"🦶",fullThumb:"https://static.playhop.com/images/footdoctor/pjpg128x128",fullUrl:"https://playhop.com/app/96524"},
-  {title:"Buy a Brainrot 3D",tag:"clicker",emoji:"🧠",fullThumb:"https://static.playhop.com/images/brainrot3d/pjpg128x128",fullUrl:"https://playhop.com/app/108001"},
-  {title:"Hoby Tales",tag:"puzzle",emoji:"🧩",fullThumb:"https://static.playhop.com/images/hobytales/pjpg128x128",fullUrl:"https://playhop.com/app/107890"},
-  {title:"Knights & Brides",tag:"strategy",emoji:"⚔️",fullThumb:"https://static.playhop.com/images/knightsbrides/pjpg128x128",fullUrl:"https://playhop.com/app/96600"},
+  /* ===== CrazyGames ===== */
+  {title:"Bloxd io",tag:"minecraft",img:"",url:"https://www.crazygames.com/game/bloxdhop-io"},
+  {title:"Ragdoll Archers",tag:"action",img:"",url:"https://www.crazygames.com/game/ragdoll-archers"},
+  {title:"Veck io",tag:"io",img:"",url:"https://www.crazygames.com/game/veck-io"},
+  {title:"Mahjongg Solitaire",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/mahjongg-solitaire"},
+  {title:"Piece of Cake Merge and Bake",tag:"casual",img:"",url:"https://www.crazygames.com/game/piece-of-cake-merge-and-bake"},
+  {title:"Space Waves",tag:"arcade",img:"",url:"https://www.crazygames.com/game/space-waves"},
+  {title:"RocketGoal io",tag:"io",img:"",url:"https://www.crazygames.com/game/rocketgoal-io"},
+  {title:"Openfront",tag:"strategy",img:"",url:"https://www.crazygames.com/game/openfront-gsw"},
+  {title:"Color Tap Coloring by Numbers",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/color-tap-coloring-by-numbers"},
+  {title:"Mergest Kingdom",tag:"casual",img:"",url:"https://www.crazygames.com/game/mergest-kingdom"},
+  {title:"Traffic Rider",tag:"driving",img:"",url:"https://www.crazygames.com/game/traffic-rider-vvq"},
+  {title:"Uno Online",tag:"multiplayer",img:"",url:"https://www.crazygames.com/game/uno-online"},
+  {title:"Piles of Mahjong",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/piles-of-mahjong-jhb"},
+  {title:"8 Ball Billiards Classic",tag:"sports",img:"",url:"https://www.crazygames.com/game/8-ball-billiards-classic"},
+  {title:"Dig out of Prison",tag:"escape",img:"",url:"https://www.crazygames.com/game/dig-out-of-prison"},
+  {title:"Farm Merge Valley",tag:"casual",img:"",url:"https://www.crazygames.com/game/farm-merge-valley"},
+  {title:"Word Wipe",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/word-wipe"},
+  {title:"Tower Swap",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/tower-swap"},
+  {title:"Build Now GG",tag:"shooting",img:"",url:"https://www.crazygames.com/game/buildnow-gg"},
+  {title:"Hexa Sort",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/hexa-sort"},
+  {title:"Spider Solitaire",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/spider-solitaire-fuw"},
+  {title:"Count Masters",tag:"action",img:"",url:"https://www.crazygames.com/game/count-masters-stickman-games"},
+  {title:"Wordmeister",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/wordmeister"},
+  {title:"Arrow Escape",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/arrow-exit-puzzle"},
+  {title:"Designville Merge & Design",tag:"casual",img:"",url:"https://www.crazygames.com/game/designville-merge-design"},
+  {title:"Open House",tag:"casual",img:"",url:"https://www.crazygames.com/game/open-house"},
+  {title:"Smash Karts",tag:"multiplayer",img:"",url:"https://www.crazygames.com/game/smash-karts"},
+  {title:"Mahjong Connect Legacy",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/mahjong-connect-1"},
+  {title:"Hidden Objects Online",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/hidden-objects"},
+  {title:"Escape Tsunami for Brainrots",tag:"escape",img:"",url:"https://www.crazygames.com/game/escape-tsunami-for-brainrots-wfe"},
+  {title:"99 Nights Bloxd io",tag:"minecraft",img:"",url:"https://www.crazygames.com/game/99-nights-bloxd-io"},
+  {title:"Mahjong Online",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/mahjong-classic-webgl"},
+  {title:"Deadly Descent",tag:"action",img:"",url:"https://www.crazygames.com/game/deadly-descent-bzs"},
+  {title:"War the Knights",tag:"strategy",img:"",url:"https://www.crazygames.com/game/war-the-knights"},
+  {title:"8 Ball Pool",tag:"sports",img:"",url:"https://www.crazygames.com/game/8-ball-pool-wyr"},
+  {title:"Mage Tower Idle Defense",tag:"strategy",img:"",url:"https://www.crazygames.com/game/mage-tower-idle-defense"},
+  {title:"SkillWarz",tag:"shooting",img:"",url:"https://www.crazygames.com/game/skillwarz"},
+  {title:"Racing Limits",tag:"driving",img:"",url:"https://www.crazygames.com/game/racing-limits"},
+  {title:"Country Life Meadows",tag:"casual",img:"",url:"https://www.crazygames.com/game/country-life-meadows"},
+  {title:"Screw Out Bolts and Nuts",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/screw-out-bolts-and-nuts"},
+  {title:"Bloons Tower Defense 4",tag:"strategy",img:"",url:"https://www.crazygames.com/game/bloons-tower-defense-4"},
+  {title:"Ring Farm Idle",tag:"idle",img:"",url:"https://www.crazygames.com/game/farm-ring-idle"},
+  {title:"Ramp Car VS Police CHASE",tag:"driving",img:"",url:"https://www.crazygames.com/game/ramp-car-vs-police-chase-psm"},
+  {title:"Free GeoGuessr",tag:"casual",img:"",url:"https://www.crazygames.com/game/worldguessr"},
+  {title:"Castle Craft",tag:"strategy",img:"",url:"https://www.crazygames.com/game/castle-craft"},
+  {title:"PolyTrack",tag:"racing",img:"",url:"https://www.crazygames.com/game/polytrack"},
+  {title:"Bullet Force",tag:"shooting",img:"",url:"https://www.crazygames.com/game/bullet-force-multiplayer"},
+  {title:"Doodle Road",tag:"driving",img:"",url:"https://www.crazygames.com/game/doodle-road"},
+  {title:"Hazmob FPS Online Shooter",tag:"shooting",img:"",url:"https://www.crazygames.com/game/hazmob-fps-online-shooter"},
+  {title:"Fairyland Merge & Magic",tag:"casual",img:"",url:"https://www.crazygames.com/game/fairyland-merge-and-magic"},
+  {title:"Miniblox",tag:"minecraft",img:"",url:"https://www.crazygames.com/game/miniblox"},
+  {title:"Sky Riders",tag:"driving",img:"",url:"https://www.crazygames.com/game/sky-riders-buk"},
+  {title:"Nuts Puzzle Sort By Color",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/nuts-puzzle-sort-by-color"},
+  {title:"Meeland io",tag:"io",img:"",url:"https://www.crazygames.com/game/meeland-io"},
+  {title:"Fortzone",tag:"shooting",img:"",url:"https://www.crazygames.com/game/fortzone-battle-royale-xkd"},
+  {title:"Arrow Escape Puzzle",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/arrow-escape-puzzle"},
+  {title:"Arkadium Bubble Shooter",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/arkadium-s-bubble-shooter"},
+  {title:"Leek Factory Tycoon",tag:"idle",img:"",url:"https://www.crazygames.com/game/leek-factory-tycoon"},
+  {title:"Words of Wonders",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/words-of-wonders"},
+  {title:"Tropical Merge",tag:"casual",img:"",url:"https://www.crazygames.com/game/tropical-merge"},
+  {title:"MX OffRoad Master",tag:"bike",img:"",url:"https://www.crazygames.com/game/mx-offroad-master"},
+  {title:"Thief Puzzle",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/thief-puzzle"},
+  {title:"Shell Shockers",tag:"shooting",img:"",url:"https://www.crazygames.com/game/shellshockersio"},
+  {title:"Driving School Simulator",tag:"driving",img:"",url:"https://www.crazygames.com/game/driving-school-simulator"},
+  {title:"Grow A Garden",tag:"casual",img:"",url:"https://www.crazygames.com/game/grow-a-garden---growden-io"},
+  {title:"Cubes 2048 io",tag:"io",img:"",url:"https://www.crazygames.com/game/cubes-2048-io"},
+  {title:"Firestone Idle RPG",tag:"idle",img:"",url:"https://www.crazygames.com/game/firestone-idle-rpg"},
+  {title:"Iron Legion",tag:"strategy",img:"",url:"https://www.crazygames.com/game/iron-legion"},
+  {title:"Mansion Tale Merge Secrets",tag:"casual",img:"",url:"https://www.crazygames.com/game/mansion-tale-merge-secrets"},
+  {title:"8 Ball Pool Multiplayer",tag:"sports",img:"",url:"https://www.crazygames.com/game/8-ball-pool-billiards-multiplayer"},
+  {title:"Backgammon Online",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/classic-backgammon"},
+  {title:"Stickman Clash",tag:"action",img:"",url:"https://www.crazygames.com/game/stickman-clash"},
+  {title:"Spades Game",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/spades"},
+  {title:"BlockBuster Puzzle",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/blockbuster-puzzle"},
+  {title:"What's the Difference Online",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/what-s-the-difference-online"},
+  {title:"Basketball Stars",tag:"sports",img:"",url:"https://www.crazygames.com/game/basketball-stars-2019"},
+  {title:"Slice Master",tag:"casual",img:"",url:"https://www.crazygames.com/game/slice-master"},
+  {title:"Paper io 2",tag:"io",img:"",url:"https://www.crazygames.com/game/paper-io-2"},
+  {title:"Path of Survivor",tag:"action",img:"",url:"https://www.crazygames.com/game/path-of-survivor"},
+  {title:"Hex Empire",tag:"strategy",img:"",url:"https://www.crazygames.com/game/hex-empire"},
+  {title:"Stone Grass Mowing Simulator",tag:"simulator",img:"",url:"https://www.crazygames.com/game/stone-grass-mowing-simulator"},
+  {title:"Block Blast",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/block-puzzle-master"},
+  {title:"Bubble Shooter",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/bubble-shooter-classic"},
+  {title:"Rally Racer Dirt",tag:"racing",img:"",url:"https://www.crazygames.com/game/rally-racer-dirt"},
+  {title:"Idle Zombie Wave",tag:"idle",img:"",url:"https://www.crazygames.com/game/idle-zombie-wave"},
+  {title:"Evowars io",tag:"io",img:"",url:"https://www.crazygames.com/game/evowarsio"},
+  {title:"Mahjong Titans",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/mahjong-titans"},
+  {title:"Special Ops GO",tag:"shooting",img:"",url:"https://www.crazygames.com/game/special-ops-go"},
+  {title:"AOD Art Of Defense",tag:"strategy",img:"",url:"https://www.crazygames.com/game/aod---art-of-defense"},
+  {title:"Dead Land Survival",tag:"action",img:"",url:"https://www.crazygames.com/game/dead-land-survival"},
+  {title:"Wave Dash Geometry Arrow",tag:"arcade",img:"",url:"https://www.crazygames.com/game/wave-dash-geometry-arrow"},
+  {title:"Bubble Story",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/bubble-story"},
+  /* Page 2 */
+  {title:"Night City Racing",tag:"racing",img:"",url:"https://www.crazygames.com/game/night-city-racing"},
+  {title:"Mahjong Tower",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/mahjong-tower-2"},
+  {title:"Basket Random",tag:"sports",img:"",url:"https://www.crazygames.com/game/basket-random"},
+  {title:"Hearts Classic",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/hearts-classic"},
+  {title:"Demolition Derby 3",tag:"driving",img:"",url:"https://www.crazygames.com/game/demolition-derby-3"},
+  {title:"Skydom",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/skydom"},
+  {title:"Bloons Tower Defense 3",tag:"strategy",img:"",url:"https://www.crazygames.com/game/bloons-tower-defense-3"},
+  {title:"Chess Online",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/chess-free"},
+  {title:"Obby +1 Jump per Click",tag:"escape",img:"",url:"https://www.crazygames.com/game/obby-1-jump-per-click"},
+  {title:"Card Solitaire Word Game",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/card-solitaire-word-game"},
+  {title:"Escape From School Angry Teacher",tag:"escape",img:"",url:"https://www.crazygames.com/game/escape-from-school-angry-teacher"},
+  {title:"Ships 3D",tag:"strategy",img:"",url:"https://www.crazygames.com/game/ships-3d"},
+  {title:"Bloxorz",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/bloxorz"},
+  {title:"Spider Solitaire 2 Suits",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/spider-solitaire-2-suits"},
+  {title:"Smash the Car to Pieces",tag:"driving",img:"",url:"https://www.crazygames.com/game/smash-the-car-to-pieces-lug"},
+  {title:"Voxiom io",tag:"io",img:"",url:"https://www.crazygames.com/game/voxiom-io"},
+  {title:"Babel Tower",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/babel-tower"},
+  {title:"Gulper io",tag:"io",img:"",url:"https://www.crazygames.com/game/gulper-io"},
+  {title:"Clicker Heroes",tag:"clicker",img:"",url:"https://www.crazygames.com/game/clicker-heroes"},
+  {title:"Defender Idle 2",tag:"idle",img:"",url:"https://www.crazygames.com/game/defender-idle-2"},
+  {title:"Car OUT Jam Parking Puzzle",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/car-out-jam-parking-puzzle"},
+  {title:"Fantasy Online 2",tag:"action",img:"",url:"https://www.crazygames.com/game/fantasy-online-2"},
+  {title:"Tank Stars",tag:"action",img:"",url:"https://www.crazygames.com/game/tank-stars-online"},
+  {title:"CubeRealm io",tag:"io",img:"",url:"https://www.crazygames.com/game/cuberealm-io"},
+  {title:"Drive Quest Car Game",tag:"driving",img:"",url:"https://www.crazygames.com/game/drive-quest---car-game"},
+  {title:"Wood Block Journey",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/wood-block-journey"},
+  {title:"Airport Security",tag:"casual",img:"",url:"https://www.crazygames.com/game/airport-security"},
+  {title:"Block Champ",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/block-champ"},
+  {title:"Jump Master Car Racing",tag:"racing",img:"",url:"https://www.crazygames.com/game/jump-master-car-racing-peo"},
+  {title:"Escape Road 2",tag:"driving",img:"",url:"https://www.crazygames.com/game/escape-road-2"},
+  {title:"Skydom Reforged",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/skydom-reforged"},
+  {title:"Unmatched Basketball",tag:"sports",img:"",url:"https://www.crazygames.com/game/unmatched-basketball"},
+  {title:"Obby Ride Carts",tag:"escape",img:"",url:"https://www.crazygames.com/game/obby-ride-carts"},
+  {title:"Planet Smash Destruction",tag:"casual",img:"",url:"https://www.crazygames.com/game/solar-smash"},
+  {title:"Cursed Treasure 2",tag:"strategy",img:"",url:"https://www.crazygames.com/game/cursed-treasure-2"},
+  {title:"Papa's Cheeseria",tag:"casual",img:"",url:"https://www.crazygames.com/game/papas-cheeseria"},
+  {title:"Burger Life",tag:"casual",img:"",url:"https://www.crazygames.com/game/burger-life"},
+  {title:"Mr Mine",tag:"idle",img:"",url:"https://www.crazygames.com/game/mister-mine"},
+  {title:"Man Runner 2048",tag:"arcade",img:"",url:"https://www.crazygames.com/game/man-runner-2048"},
+  {title:"Park Town",tag:"casual",img:"",url:"https://www.crazygames.com/game/park-town"},
+  {title:"City Bus Driver Game",tag:"driving",img:"",url:"https://www.crazygames.com/game/city-bus-driver"},
+  {title:"BasketBros",tag:"sports",img:"",url:"https://www.crazygames.com/game/basketbros"},
+  {title:"BodyCamera Shooter",tag:"shooting",img:"",url:"https://www.crazygames.com/game/bodycamera-shooter"},
+  {title:"Guess Their Answer",tag:"casual",img:"",url:"https://www.crazygames.com/game/guess-their-answer"},
+  {title:"Gas Station Junkyard Tycoon",tag:"idle",img:"",url:"https://www.crazygames.com/game/gas-station-ooe"},
+  {title:"Speed per Click Obby",tag:"escape",img:"",url:"https://www.crazygames.com/game/speed-per-click-obby"},
+  {title:"Tiles of the Simpsons",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/tiles-of-the-simpsons"},
+  {title:"Your Chronicle",tag:"idle",img:"",url:"https://www.crazygames.com/game/your-chronicle"},
+  {title:"Associations Word Connect",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/associations---word-connect"},
+  {title:"Upgrade the Supercar 3D",tag:"car",img:"",url:"https://www.crazygames.com/game/upgrade-the-supercar-3d"},
+  {title:"Wood Screw Bolts Puzzle",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/wood-screw-bolts-puzzle"},
+  {title:"Brick Breaker",tag:"arcade",img:"",url:"https://www.crazygames.com/game/bricks-breaker"},
+  {title:"Idle Inventor",tag:"idle",img:"",url:"https://www.crazygames.com/game/idle-inventor"},
+  {title:"War Mahjong",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/war-mahjong"},
+  {title:"Obby World Squid Escape",tag:"escape",img:"",url:"https://www.crazygames.com/game/obby-world-squid-escape"},
+  {title:"Stickman Kombat 2D",tag:"action",img:"",url:"https://www.crazygames.com/game/stickman-kombat-2d"},
+  {title:"Cup Heroes",tag:"strategy",img:"",url:"https://www.crazygames.com/game/cup-heroes"},
+  {title:"StarBlast io",tag:"io",img:"",url:"https://www.crazygames.com/game/starblastio"},
+  {title:"Ludo",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/ludo-king"},
+  {title:"Super Star Car",tag:"car",img:"",url:"https://www.crazygames.com/game/super-star-car"},
+  {title:"Empire City",tag:"strategy",img:"",url:"https://www.crazygames.com/game/empire-city"},
+  {title:"Pixel Warfare",tag:"shooting",img:"",url:"https://www.crazygames.com/game/pixel-warfare"},
+  {title:"Build and Crush",tag:"multiplayer",img:"",url:"https://www.crazygames.com/game/build-and-crush"},
+  {title:"Drift Hunters CG",tag:"drift",img:"",url:"https://www.crazygames.com/game/drift-hunters"},
+  {title:"Table Tennis World Tour",tag:"sports",img:"",url:"https://www.crazygames.com/game/table-tennis-world-tour"},
+  {title:"Assault Bots",tag:"shooting",img:"",url:"https://www.crazygames.com/game/bot-machines"},
+  {title:"Gridpunk",tag:"multiplayer",img:"",url:"https://www.crazygames.com/game/gridpunk---3v3-battle-royale"},
+  {title:"Wood Blocks Jam",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/wood-blocks-jam"},
+  {title:"Food Truck Chef",tag:"casual",img:"",url:"https://www.crazygames.com/game/food-truck-chef"},
+  {title:"Battle Arena",tag:"multiplayer",img:"",url:"https://www.crazygames.com/game/battle-arena"},
+  {title:"Poker with Friends",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/erth-poker"},
+  {title:"Fighter Aircraft Pilot",tag:"action",img:"",url:"https://www.crazygames.com/game/fighter-aircraft-pilot"},
+  {title:"Stick War",tag:"strategy",img:"",url:"https://www.crazygames.com/game/stick-war"},
+  {title:"Fly or Die io",tag:"io",img:"",url:"https://www.crazygames.com/game/flyordieio"},
+  {title:"Geometry Dash CG",tag:"arcade",img:"",url:"https://www.crazygames.com/game/geometry-dash-online"},
+  {title:"Merge World",tag:"casual",img:"",url:"https://www.crazygames.com/game/merge-world"},
+  /* Page 3 */
+  {title:"Evolve Game",tag:"io",img:"",url:"https://www.crazygames.com/game/evolve"},
+  {title:"Mahjong Connect 2",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/mahjong-connect-2-2"},
+  {title:"Butterfly Shimai",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/butterfly-shimai"},
+  {title:"Survive the Disasters Obby",tag:"escape",img:"",url:"https://www.crazygames.com/game/survive-the-disasters-obby"},
+  {title:"Capybara Clicker",tag:"clicker",img:"",url:"https://www.crazygames.com/game/capybara-clicker"},
+  {title:"Forward Assault Remix",tag:"shooting",img:"",url:"https://www.crazygames.com/game/forward-assault"},
+  {title:"Puppet Fighter 2 Player",tag:"multiplayer",img:"",url:"https://www.crazygames.com/game/puppet-fighter-2-player"},
+  {title:"Hexanaut io",tag:"io",img:"",url:"https://www.crazygames.com/game/hexanaut-io"},
+  {title:"Planet Evolution Idle Clicker",tag:"clicker",img:"",url:"https://www.crazygames.com/game/planet-evolution-idle-clicker"},
+  {title:"Kingdom Rush",tag:"strategy",img:"",url:"https://www.crazygames.com/game/kingdom-rush"},
+  {title:"Basketball Superstars",tag:"sports",img:"",url:"https://www.crazygames.com/game/basketball-superstars"},
+  {title:"Teacher Simulator",tag:"simulator",img:"",url:"https://www.crazygames.com/game/teacher-simulator"},
+  {title:"TimeWarriors",tag:"strategy",img:"",url:"https://www.crazygames.com/game/timewarriors"},
+  {title:"Sprunki",tag:"casual",img:"",url:"https://www.crazygames.com/game/sprunki-itn"},
+  {title:"Bridge Race",tag:"arcade",img:"",url:"https://www.crazygames.com/game/bridge-race"},
+  {title:"Snake io",tag:"io",img:"",url:"https://www.crazygames.com/game/snake-io"},
+  {title:"Tanks 3D",tag:"action",img:"",url:"https://www.crazygames.com/game/tanks-3d"},
+  {title:"Smarty Bubbles",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/smarty-bubbles"},
+  {title:"Candy Riddles",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/candy-riddles"},
+  {title:"Daily Puzzle",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/daily-puzzle"},
+  {title:"Golf Orbit",tag:"sports",img:"",url:"https://www.crazygames.com/game/golf-orbit"},
+  {title:"Incremental Epic Hero 2",tag:"idle",img:"",url:"https://www.crazygames.com/game/incremental-epic-hero-2"},
+  {title:"Stabfish 2",tag:"io",img:"",url:"https://www.crazygames.com/game/stabfish2-io-multiplayer"},
+  {title:"World Z Defense",tag:"strategy",img:"",url:"https://www.crazygames.com/game/world-z-defense---zombie-defense"},
+  {title:"Lamplighter Merge & Magic",tag:"casual",img:"",url:"https://www.crazygames.com/game/lamplighter-merge-magic"},
+  {title:"Escape From Prison Multiplayer",tag:"multiplayer",img:"",url:"https://www.crazygames.com/game/escape-from-prison-multiplayer"},
+  {title:"Mahjong Puzzle Tile Match",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/mahjong-puzzle-tile-match"},
+  {title:"Revolution Idle X",tag:"idle",img:"",url:"https://www.crazygames.com/game/revolution-idle-x-demo"},
+  {title:"Pottery Master",tag:"casual",img:"",url:"https://www.crazygames.com/game/pottery-master"},
+  {title:"Planet Clicker 2",tag:"clicker",img:"",url:"https://www.crazygames.com/game/planet-clicker-2"},
+  {title:"Lumber Harvest Tree Cutting Game",tag:"casual",img:"",url:"https://www.crazygames.com/game/lumber-harvest-tree-cutting-game"},
+  {title:"Sandbox City",tag:"action",img:"",url:"https://www.crazygames.com/game/sandbox-city---cars-zombies-ragdolls"},
+  {title:"Find It Hidden Object Puzzle",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/find-it-hidden-object-puzzle"},
+  {title:"Crazy Grand Prix",tag:"racing",img:"",url:"https://www.crazygames.com/game/crazy-grand-prix"},
+  {title:"Mahjong Unlimited",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/mahjong-unlimited"},
+  {title:"Getaway Shootout",tag:"multiplayer",img:"",url:"https://www.crazygames.com/game/getaway-shootout"},
+  {title:"Papa's Sushiria",tag:"casual",img:"",url:"https://www.crazygames.com/game/papas-sushiria"},
+  {title:"Baseball Online",tag:"sports",img:"",url:"https://www.crazygames.com/game/baseball"},
+  {title:"Papa's Bakeria",tag:"casual",img:"",url:"https://www.crazygames.com/game/papas-bakeria"},
+  {title:"Time Shooter 2",tag:"shooting",img:"",url:"https://www.crazygames.com/game/time-shooter-2"},
+  {title:"Moto X3M CG",tag:"bike",img:"",url:"https://www.crazygames.com/game/moto-x3m"},
+  {title:"The Impossible Quiz",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/the-impossible-quiz"},
+  {title:"Pool Bubbles",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/pool-bubbles"},
+  {title:"Mancala Classic",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/mancala-classic"},
+  {title:"Overtide io",tag:"io",img:"",url:"https://www.crazygames.com/game/overtide-io"},
+  {title:"Amazing Strange Rope Police",tag:"action",img:"",url:"https://www.crazygames.com/game/amazing-strange-rope-police-vice-spider"},
+  {title:"Marble Merge",tag:"casual",img:"",url:"https://www.crazygames.com/game/marble-merge"},
+  {title:"Obby Tycoon Build the City",tag:"escape",img:"",url:"https://www.crazygames.com/game/obby-tycoon-build-the-city"},
+  {title:"Sniper Shot Bullet Time",tag:"shooting",img:"",url:"https://www.crazygames.com/game/sniper-shot-bullet-time"},
+  {title:"Classic Card Games Collection",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/classic-card-games-collection"},
+  {title:"Obby Gym Simulator Escape",tag:"escape",img:"",url:"https://www.crazygames.com/game/obby-gym-simulator-escape"},
+  {title:"Vector TD",tag:"strategy",img:"",url:"https://www.crazygames.com/game/vector-td"},
+  {title:"Ludo Club Fun Dice Game",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/ludo-club---fun-dice-game"},
+  {title:"The Battleground Online",tag:"multiplayer",img:"",url:"https://www.crazygames.com/game/the-battleground"},
+  {title:"King of Cash",tag:"idle",img:"",url:"https://www.crazygames.com/game/king-of-cash-idle-business-sim"},
+  {title:"TileMan io",tag:"io",img:"",url:"https://www.crazygames.com/game/tileman-io"},
+  {title:"Zoo Boom",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/zoo-boom"},
+  {title:"Cups Water Sort Puzzle",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/cups---water-sort-puzzle"},
+  {title:"House of Hazards",tag:"multiplayer",img:"",url:"https://www.crazygames.com/game/house-of-hazards"},
+  {title:"Motherload",tag:"idle",img:"",url:"https://www.crazygames.com/game/motherload"},
+  {title:"Diep io",tag:"io",img:"",url:"https://www.crazygames.com/game/diepio"},
+  {title:"Crusher Clicker",tag:"clicker",img:"",url:"https://www.crazygames.com/game/crusher-clicker"},
+  {title:"Daily Solitaire Challenge",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/daily-solitaire-challenge"},
+  {title:"Celtic Mahjong Solitaire",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/celtic-mahjong-solitaire"},
+  {title:"Plants vs Brain Zombies",tag:"strategy",img:"",url:"https://www.crazygames.com/game/plants-vs-brain-zombies"},
+  {title:"Master Chess",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/master-chess"},
+  {title:"Solitaire Social",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/social-solitaire"},
+  {title:"Hotel Rush Merge Story",tag:"casual",img:"",url:"https://www.crazygames.com/game/merge-hotel-dev"},
+  {title:"Escape Road",tag:"driving",img:"",url:"https://www.crazygames.com/game/escape-road-asm"},
+  {title:"Prison Escape Game",tag:"escape",img:"",url:"https://www.crazygames.com/game/prison-escape-lnj"},
+  {title:"Stickman Project",tag:"action",img:"",url:"https://www.crazygames.com/game/stickman-project-bnw"},
+  {title:"Supermarket Simulator",tag:"simulator",img:"",url:"https://www.crazygames.com/game/supermarket-simulator-cashier-game"},
+  {title:"Survev io",tag:"io",img:"",url:"https://www.crazygames.com/game/survev"},
+  {title:"TapTap Shots",tag:"sports",img:"",url:"https://www.crazygames.com/game/tap-tap-shots"},
+  {title:"Mine Shooter 3D",tag:"shooting",img:"",url:"https://www.crazygames.com/game/mine-shooter-3d"},
+  {title:"Horde Killer",tag:"action",img:"",url:"https://www.crazygames.com/game/horde-killer-you-vs-100"},
+  {title:"Epic Sword Battle",tag:"action",img:"",url:"https://www.crazygames.com/game/epic-sword-battle-fight-in-arena"},
+  {title:"Mahjong Gardens",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/mahjong-gardens"},
+  {title:"Merge Academy",tag:"casual",img:"",url:"https://www.crazygames.com/game/merge-academy"},
+  {title:"Airline Tycoon Idle",tag:"idle",img:"",url:"https://www.crazygames.com/game/airline-tycoon-idle"},
+  {title:"Fill The Fridge",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/fill-the-fridge"},
+  {title:"Checkers Free",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/checkers-free"},
+  {title:"Entropy Game",tag:"puzzle",img:"",url:"https://www.crazygames.com/game/entropy"},
+  {title:"Basketball Legends",tag:"sports",img:"",url:"https://www.crazygames.com/game/basketball-legends-2020"},
+  {title:"Bank Heist",tag:"action",img:"",url:"https://www.crazygames.com/game/bank-heist"},
 ];
 
 /* Featured picks with direct image URLs so thumbnails always load */
@@ -363,6 +582,18 @@ function renderFeatured() {
     </div>`).join("");
 }
 
+function filterCrazyGames(el) {
+  document.querySelectorAll(".cat").forEach(c => c.classList.remove("on"));
+  el.classList.add("on");
+  activeCat = "__crazygames__";
+  document.getElementById("secLabel").textContent = "CrazyGames";
+  document.getElementById("featSection").style.display = "none";
+  const list = games.filter(g => g.url.startsWith("http"));
+  activeList = list;
+  document.getElementById("gameCount").textContent = list.length + " game" + (list.length !== 1 ? "s" : "");
+  render(list);
+}
+
 function setCategory(el, cat) {
   if (el) {
     document.querySelectorAll(".cat").forEach(c => c.classList.remove("on"));
@@ -400,19 +631,27 @@ function render(list) {
     grid.innerHTML = '<div class="no-res"><div class="no-res-icon">🔍</div>No games found. Try a different search!</div>';
     return;
   }
-  grid.innerHTML = list.map((g,i) => `
+  grid.innerHTML = list.map((g,i) => {
+    const isCG = g.url.startsWith("http");
+    const imgSrc = isCG ? `https://imgs.crazygames.com/${g.url.split('/game/')[1]}_16x9/cover?metadata=none&quality=60&width=148&fit=crop` : `${BASE}${g.img}`;
+    const badge = isCG ? `<div style="position:absolute;top:5px;right:5px;background:#e8512a;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;z-index:2">CrazyGames</div>` : '';
+    return `
     <div class="card" onclick="openGame(${i})">
-      <img class="thumb" src="${g.fullThumb || (BASE+g.img)}" alt="${g.title}" loading="lazy" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div style=\'width:100%;height:100px;background:#1a1a38;display:flex;align-items:center;justify-content:center;font-size:28px\'>${g.emoji||'🎮'}</div>')">
-      <div class="play-overlay">
-        <div class="play-icon">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+      <div style="position:relative">
+        <img class="thumb" src="${imgSrc}" alt="${g.title}" loading="lazy" onerror="this.style.display='none';this.insertAdjacentHTML('afterend','<div style=\\'width:100%;height:100px;background:#1a1a38;display:flex;align-items:center;justify-content:center;font-size:28px\\'>${g.emoji||'🎮'}</div>')">
+        ${badge}
+        <div class="play-overlay">
+          <div class="play-icon">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff"><polygon points="5,3 19,12 5,21"/></svg>
+          </div>
         </div>
       </div>
       <div class="cinfo">
         <div class="ctitle">${g.title}</div>
         <div class="ctag">${g.tag}</div>
       </div>
-    </div>`).join("");
+    </div>`;
+  }).join("");
 }
 
 function openGame(i) {
@@ -428,7 +667,8 @@ function openGameByTitle(title) {
 function _launch(g) {
   document.getElementById("pTitle").textContent = g.title;
   document.getElementById("pTag").textContent = g.tag.toUpperCase();
-  document.getElementById("pFrame").src = g.fullUrl || (BASE + g.url);
+  const src = g.url.startsWith("http") ? g.url : BASE + g.url;
+  document.getElementById("pFrame").src = src;
   document.getElementById("player").classList.add("open");
   document.body.style.overflow = "hidden";
 }
